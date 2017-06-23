@@ -2,6 +2,7 @@ package com.nakanara.openapi1;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nakanara.util.DataKrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +33,7 @@ public class Test {
 
         Map<String, Object> body = (Map) response.get("body");
 
-        logger.info("body items = {} Data = {}", body.size(), body);
+        logger.info("body items = {} totalCount: {}  Data = {}", body.size(), (int)DataKrUtil.getDataKrDouble(body.get("totalCount")), body);
 
         Map<String, Object> items = (Map) body.get("items");
 

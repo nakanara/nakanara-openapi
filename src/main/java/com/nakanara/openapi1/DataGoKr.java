@@ -1,24 +1,27 @@
 package com.nakanara.openapi1;
 
 import com.nakanara.util.StringUtil;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by steg on 2017-06-22.
  */
 public class DataGoKr {
 
+    protected static SessionFactory factory;
     private String domain = "";
     private String serviceKey="";
 
@@ -26,15 +29,39 @@ public class DataGoKr {
 
 
     public DataGoKr(){
-
+        try{
+            logger.info("INIT DataGoKr");
+            factory = new Configuration().configure("/conf/hibernate-config.xml")
+                    .buildSessionFactory();
+        }catch(Exception e) {
+            logger.error("Failed to create sessionFactory object. {}", e);
+        }
     }
     public void dataGoKrInit(String domain) {
         this.domain = domain;
     }
-    public void dataGoKrInit(String domain, String serviceKey) {
+
+    public void dataGoKrInit(String domain, Map<String, String> params) {
         this.domain = domain;
-        this.serviceKey = serviceKey;
+
+        Iterator<String> it = params.keySet().iterator();
+        StringBuffer buf = new StringBuffer();
+
+        while(it.hasNext()) {
+            String k = it.next();
+            String v = params.get(k);
+
+            if(buf.length() > 0) buf.append("&");
+
+            buf.append(k).append("=").append(v);
+        }
+
+        logger.info("domain: {}, params: {}", domain, buf.toString());
+
+        this.domain = domain + "?" + buf.toString();
+
     }
+
 
     public String collection() {
         perSetting();
@@ -47,12 +74,7 @@ public class DataGoKr {
         */
         try {
 
-            String http_url = "";
-            if(StringUtil.isEmpty(serviceKey)) {
-                http_url = this.domain;
-            } else {
-                http_url = this.domain + "?serviceKey=" + serviceKey;
-            }
+            String http_url = this.domain;
 
 
             logger.info("collection Start Domain={} url={}", domain, http_url);
@@ -78,15 +100,8 @@ public class DataGoKr {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return buf.toString();
 
-    }
-
-    public void xmlParsing(String str) {
-        //DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        //DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        //Document document = documentBuilder.parse(str);
     }
 
     public void perSetting(){
@@ -94,6 +109,8 @@ public class DataGoKr {
         System.setProperty("http.proxyHost", "172.30.4.18") ;
         System.setProperty("http.proxyPort", "8080");
     }
+
+
 
     public static void main(String args[]) {
         new DataGoKr();

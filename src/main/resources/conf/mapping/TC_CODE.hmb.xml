@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.nakanara.openapi1.apt.dao">
+    <class name="TcCodeDao" table="TC_CODE">
+
+        <property name="code_type" type="string" column="code_type"/>
+        <property name="code_id" type="string" column="code_id"/>
+        <property name="code_name" type="string" column="code_name"/>
+        <property name="code_used" type="string" column="code_used"/>
+        <property name="code_order" type="int" column="code_order"/>
+    </class>
+</hibernate-mapping>

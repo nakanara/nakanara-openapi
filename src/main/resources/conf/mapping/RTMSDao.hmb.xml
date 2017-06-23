@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.nakanara.openapi1.apt.dao">
+    <class name="RTMSDao" table="TB_RTMS">
+        <meta attribute="class-description">
+            This class contains the employee detail.
+        </meta>
+        <id name="rtmsNo" type="int" column="rtmsNo">
+            <generator class="sequence-identity">
+                <param name="sequence">seq_tb_rtms</param>
+            </generator>
+        </id>
+        <property name="rtmsSeq" type="string" column="rtmsSeq"/>
+        <property name="rtmsBullingYY" column="rtmsBullingYY" type="int"/>
+        <property name="rtmsDealMoney" column="rtmsDealMoney" type="long"/>
+        <property name="rtmsDealYY" column="rtmsDealYY" type="int"/>
+        <property name="rtmsDealMM" column="rtmsDealMM" type="long" />
+        <property name="rtmsDealDD" column="rtmsDealDD" type="string" />
+        <property name="rtmsLoadName" column="rtmsLoadName" type="string" />
+        <property name="rtmsLoadMainNum" column="rtmsLoadMainNum" type="string" />
+        <property name="rtmsLoadSubNum" column="rtmsLoadSubNum" type="string" />
+        <property name="rtmsLoadNum" column="rtmsLoadNum" type="string" />
+        <property name="rtmsLoadCode" column="rtmsLoadCode" type="string" />
+        <property name="rtmsAreaName" column="rtmsAreaName" type="string" />
+        <property name="rtmsAreaNameCode" column="rtmsAreaNameCode" type="string" />
+        <property name="rtmsAreaNameSubCode" column="rtmsAreaNameSubCode" type="string" />
+        <property name="rtmsLocalCode" column="rtmsLocalCode" type="long" />
+        <property name="rtmsName" column="rtmsName" type="string" />
+        <property name="rtmsFloor" column="rtmsFloor" type="long" />
+        <property name="rtmsAreaSize" column="rtmsAreaSize" type="double" />
+        <property name="rtmsRaw" column="rtmsRaw" type="string" />
+    </class>
+
+</hibernate-mapping>
