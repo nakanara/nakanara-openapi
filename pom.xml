@@ -58,6 +58,11 @@
             <url>http://www.datanucleus.org/downloads/maven2/</url>
         </repository>
         <repository>
+            <id>oracle</id>
+            <name>ORACLE JDBC Repository</name>
+            <url>http://maven.jahia.org/maven2</url>
+        </repository>
+        <repository>
             <id>maven.oracle.com</id>
             <url>http://central.maven.org/maven2/</url>
         </repository>
