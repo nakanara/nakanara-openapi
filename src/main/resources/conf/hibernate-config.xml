@@ -10,7 +10,7 @@
         <property name="hibernate.default_schema">openapi_law</property>
         <property name="hibernate.jdbc.use_get_generated_keys">true</property>
         <property name="show_sql">true</property>
-        <!--<mapping resource="conf/mapping/RTMSDao.hmb.xml"/>-->
-
+        <mapping resource="conf/mapping/RTMSDao.hmb.xml"/>
+        <mapping resource="conf/mapping/TC_CODE.hmb.xml"/>
     </session-factory>
 </hibernate-configuration>

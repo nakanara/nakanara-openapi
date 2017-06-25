@@ -18,7 +18,7 @@ public class TcCodeDao {
 
     private String code_used;
 
-    private int code_order;
+    private Integer code_order;
 
 
 
@@ -54,11 +54,11 @@ public class TcCodeDao {
         this.code_used = code_used;
     }
 
-    public int getCode_order() {
+    public Integer getCode_order() {
         return code_order;
     }
 
-    public void setCode_order(int code_order) {
+    public void setCode_order(Integer code_order) {
         this.code_order = code_order;
     }
 

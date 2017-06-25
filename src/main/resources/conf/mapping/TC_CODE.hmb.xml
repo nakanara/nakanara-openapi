@@ -5,11 +5,13 @@
 
 <hibernate-mapping package="com.nakanara.openapi1.apt.dao">
     <class name="TcCodeDao" table="TC_CODE">
-
+        <meta attribute="class-description">
+            This class contains the employee detail.
+        </meta>
+        <id name="code_id" type="string" column="code_id" />
         <property name="code_type" type="string" column="code_type"/>
-        <property name="code_id" type="string" column="code_id"/>
         <property name="code_name" type="string" column="code_name"/>
         <property name="code_used" type="string" column="code_used"/>
-        <property name="code_order" type="int" column="code_order"/>
+        <property name="code_order" type="string" column="code_order"/>
     </class>
 </hibernate-mapping>
