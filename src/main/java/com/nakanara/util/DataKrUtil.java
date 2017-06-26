@@ -13,6 +13,7 @@ public class DataKrUtil {
     public static int getDataKrInt(Object o) {
         String s = "";
         int l = 0;
+        if(o == null) return l;
 
         try{
             s = (String)o;
@@ -27,6 +28,7 @@ public class DataKrUtil {
     public static long getDataKrLong(Object o) {
         String s = "";
         long l = 0L;
+        if(o == null) return l;
 
         try{
             s = (String)o;
@@ -41,6 +43,7 @@ public class DataKrUtil {
     public static double getDataKrDouble(Object o) {
         String s = "";
         double l = 0;
+        if(o == null) return l;
 
         try{
             l = (Double) o;
@@ -53,6 +56,7 @@ public class DataKrUtil {
     public static int getDataKrCnvertDoubleToInt(Object o) {
         double l = 0;
         int i=0;
+        if(o == null) return i;
 
         try{
             l = (Double) o;
@@ -65,6 +69,7 @@ public class DataKrUtil {
 
     public static String getDataKrString(Object o) {
         String s = "";
+        if(o == null) return s;
 
         try{
             s = (String) o;
@@ -77,6 +82,7 @@ public class DataKrUtil {
     public static String getDataKrDoubleToString(Object o){
         double l = 0;
         String s= "";
+        if(o == null) return s;
 
         try{
             if(o instanceof Double) {
