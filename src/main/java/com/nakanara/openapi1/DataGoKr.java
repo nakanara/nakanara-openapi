@@ -1,6 +1,5 @@
 package com.nakanara.openapi1;
 
-import com.nakanara.util.StringUtil;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
@@ -14,7 +13,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by steg on 2017-06-22.

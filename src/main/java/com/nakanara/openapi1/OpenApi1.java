@@ -1,8 +1,5 @@
 package com.nakanara.openapi1;
 
-import sun.net.www.protocol.https.HttpsURLConnectionImpl;
-
-import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
