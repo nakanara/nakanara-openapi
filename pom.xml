@@ -99,10 +99,6 @@
             <url>http://maven.jahia.org/maven2</url>
         </repository>
         <repository>
-            <id>maven.oracle.com</id>
-            <url>http://central.maven.org/maven2/</url>
-        </repository>
-        <repository>
             <id>springsource-repo</id>
             <url>http://repo.springsource.org/release</url>
         </repository>
