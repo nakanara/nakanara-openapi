@@ -1,22 +1,23 @@
-package com.nakanara.openapi1.apt.dao;
+package com.nakanara.openapi.apt.dao;
 
 import com.nakanara.util.DataKrUtil;
 
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  * Created by steg on 2017-06-22.
  */
 @Entity(name = "Rtms")
-public class RTMSDao {
+public class RTMSDao implements Serializable{
 
     private int rtmsNo; // 일련번호
 
     private int rtmsBullingYY; // 건축년도
     private long rtmsDealMoney; // 거래 금액
     private int rtmsDealYY;    // 거래 년
-    private long rtmsDealMM;   // 거래 월
+    private int rtmsDealMM;   // 거래 월
     private String rtmsDealDD;  // 거래 주.
     private String rtmsLoadName;    // 도로 명
     private String rtmsLoadMainNum; // 도로명건물본번호코드
@@ -121,7 +122,7 @@ public class RTMSDao {
         return rtmsDealMM;
     }
 
-    public void setRtmsDealMM(long rtmsDealMM) {
+    public void setRtmsDealMM(int rtmsDealMM) {
         this.rtmsDealMM = rtmsDealMM;
     }
 
@@ -243,5 +244,31 @@ public class RTMSDao {
 
     public void setRtmsRaw(String rtmsRaw) {
         this.rtmsRaw = rtmsRaw;
+    }
+
+    @Override
+    public String toString() {
+        return "RTMSDao{" +
+                "rtmsNo=" + rtmsNo +
+                ", rtmsBullingYY=" + rtmsBullingYY +
+                ", rtmsDealMoney=" + rtmsDealMoney +
+                ", rtmsDealYY=" + rtmsDealYY +
+                ", rtmsDealMM=" + rtmsDealMM +
+                ", rtmsDealDD='" + rtmsDealDD + '\'' +
+                ", rtmsLoadName='" + rtmsLoadName + '\'' +
+                ", rtmsLoadMainNum='" + rtmsLoadMainNum + '\'' +
+                ", rtmsLoadSubNum='" + rtmsLoadSubNum + '\'' +
+                ", rtmsLoadNum='" + rtmsLoadNum + '\'' +
+                ", rtmsLoadCode='" + rtmsLoadCode + '\'' +
+                ", rtmsAreaName='" + rtmsAreaName + '\'' +
+                ", rtmsAreaNameCode='" + rtmsAreaNameCode + '\'' +
+                ", rtmsAreaNameSubCode='" + rtmsAreaNameSubCode + '\'' +
+                ", rtmsLocalCode=" + rtmsLocalCode +
+                ", rtmsName='" + rtmsName + '\'' +
+                ", rtmsFloor=" + rtmsFloor +
+                ", rtmsSeq='" + rtmsSeq + '\'' +
+                ", rtmsAreaSize=" + rtmsAreaSize +
+                ", rtmsRaw='" + rtmsRaw + '\'' +
+                '}';
     }
 }

@@ -15,7 +15,6 @@
         </context-param>-->
 
 
-
     <servlet>
         <servlet-name>openapi1</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -44,6 +43,13 @@
         <session-timeout>300</session-timeout>
     </session-config>
 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/conf/spring-dataSource.xml
+        </param-value>
+    </context-param>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

@@ -1,4 +1,4 @@
-package com.nakanara.openapi1;
+package com.nakanara.openapi;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -21,7 +21,6 @@ public class DataGoKr {
 
     protected static SessionFactory factory;
     private String domain = "";
-    private String serviceKey="";
 
     static final Logger logger = LoggerFactory.getLogger(DataGoKr.class);
 
@@ -107,6 +106,7 @@ public class DataGoKr {
         System.setProperty("http.proxyHost", "172.30.4.18") ;
         System.setProperty("http.proxyPort", "8080");
     }
+
 
 
 

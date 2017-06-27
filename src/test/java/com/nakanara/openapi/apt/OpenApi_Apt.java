@@ -1,12 +1,13 @@
-package com.nakanara.openapi1.apt;
+package com.nakanara.openapi.apt;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.nakanara.openapi1.DataGoKr;
-import com.nakanara.openapi1.apt.dao.RTMSDao;
-import com.nakanara.openapi1.apt.dao.TcCodeDao;
+import com.nakanara.openapi.DataGoKr;
+import com.nakanara.openapi.apt.dao.RTMSDao;
+import com.nakanara.openapi.apt.dao.TcCodeDao;
 import com.nakanara.util.DataKrUtil;
 import com.nakanara.util.StopWatchUtil;
+import com.nakanara.util.StringUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -25,28 +26,38 @@ public class OpenApi_Apt extends DataGoKr{
 
     Logger logger = LoggerFactory.getLogger(OpenApi_Apt.class);
     public OpenApi_Apt() {
+        //this("");
+        delRTMSYYMM("201706");
+    }
 
+    public OpenApi_Apt(String yymm) {
         Calendar startCal = StopWatchUtil.start(OpenApi_Apt.class.toString());
         List<TcCodeDao> tcCodeDaos = getLocationCode();
         int totalRow = 0;
         int subRow = 0;
         int nCnt =0;
 
+        if(StringUtil.isEmpty(yymm)) {
+            yymm = "" + Calendar.getInstance().get(Calendar.YEAR);
+        }
+
+        delRTMSYYMM(yymm);
+
         for(TcCodeDao tcCodeDao : tcCodeDaos) {
-            logger.info("Start Location: {}", tcCodeDao.getCode_name());
-            subRow = getRowData(tcCodeDao.getCode_id());
+            logger.info("Start YYMM: {} Location: {}", yymm, tcCodeDao.getCode_name());
+            subRow = getRowData(yymm, tcCodeDao.getCode_id());
             totalRow += subRow;
             logger.info("Location: {} / {} Row: {} / {}", tcCodeDao.getCode_id(), tcCodeDao.getCode_name(), subRow, totalRow);
-
         }
-        //subRow = getRowData("");
 
         StopWatchUtil.stop(OpenApi_Apt.class.toString(), startCal);
-
     }
 
-    public int getRowData(String local_code){
+    public OpenApi_Apt(String yymm, String localCode) {
+        getRowData(yymm, localCode);
+    }
 
+    public int getRowData(String yymm, String local_code){
 
 //        dataGoKrInit("http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev?" +
 //                "serviceKey=QgX6nsZoNT8G5bftv6CNm3HWssSJfvoYKsYZir6wR5sLAg1AgJ4POz8pE7JYyotFJHpE3hNSNc%2F2uVrfiMGmKQ%3D%3D" +
@@ -57,7 +68,7 @@ public class OpenApi_Apt extends DataGoKr{
         int totalPage = 0;
         int curPage = 1;
         int totalRow = 0;
-        String search_yymm = "201706";
+        String search_yymm = yymm;
 
         do {
 
@@ -68,7 +79,7 @@ public class OpenApi_Apt extends DataGoKr{
             params.put("numOfRows", "1000");
             params.put("pageSize", "1000");
             params.put("LAWD_CD", local_code);
-            params.put("DEAL_YMD", "201706");
+            params.put("DEAL_YMD", search_yymm);
             params.put("_type", "json");
 
             dataGoKrInit("http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev", params);
@@ -149,7 +160,6 @@ public class OpenApi_Apt extends DataGoKr{
 
 
     public void addRTMS(List<RTMSDao> rtmsDaos) {
-
         Session session = factory.openSession();
         Transaction tx = null;
 
@@ -165,7 +175,29 @@ public class OpenApi_Apt extends DataGoKr{
         }finally {
             session.close();
         }
+    }
 
+    public void delRTMSYYMM(String yymm) {
+        logger.info("Delete RTMS YYMM: {}", yymm);
+        Session session = factory.openSession();
+        Transaction tx = null;
+
+        Query query = session.createQuery("delete RTMSDao where rtmsDealYY = :rtmsDealYY and rtmsDealMM = :rtmsDealMM");
+        query.setParameter("rtmsDealYY", Integer.parseInt(yymm.substring(0,4)));
+        query.setParameter("rtmsDealMM",Integer.parseInt(yymm.substring(4,6)));
+
+        logger.info("llll {}", query.toString());
+
+        try {
+            tx = session.beginTransaction();
+            query.executeUpdate();
+            tx.commit();
+        } catch(HibernateException e){
+            if(tx != null) tx.commit();
+            logger.error("delRTMSYYMM {}", e);
+        }finally {
+            session.close();
+        }
     }
 
     public static void main(String args[]) {

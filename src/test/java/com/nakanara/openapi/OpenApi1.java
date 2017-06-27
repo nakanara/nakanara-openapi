@@ -1,4 +1,4 @@
-package com.nakanara.openapi1;
+package com.nakanara.openapi;
 
 import java.io.BufferedReader;
 import java.io.IOException;

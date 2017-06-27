@@ -1,4 +1,4 @@
-package com.nakanara.openapi1;
+package com.nakanara.openapi;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
