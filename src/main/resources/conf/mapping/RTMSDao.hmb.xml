@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="com.nakanara.openapi1.apt.dao">
+<hibernate-mapping package="com.nakanara.openapi.apt.dao">
     <class name="RTMSDao" table="TB_RTMS">
         <meta attribute="class-description">
             This class contains the employee detail.
@@ -17,7 +17,7 @@
         <property name="rtmsBullingYY" column="rtmsBullingYY" type="int"/>
         <property name="rtmsDealMoney" column="rtmsDealMoney" type="long"/>
         <property name="rtmsDealYY" column="rtmsDealYY" type="int"/>
-        <property name="rtmsDealMM" column="rtmsDealMM" type="long" />
+        <property name="rtmsDealMM" column="rtmsDealMM" type="int" />
         <property name="rtmsDealDD" column="rtmsDealDD" type="string" />
         <property name="rtmsLoadName" column="rtmsLoadName" type="string" />
         <property name="rtmsLoadMainNum" column="rtmsLoadMainNum" type="string" />

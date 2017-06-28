@@ -1,6 +1,5 @@
-package com.nakanara.openapi1;
+package com.nakanara.openapi;
 
-import com.nakanara.util.StringUtil;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
@@ -14,7 +13,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by steg on 2017-06-22.
@@ -23,7 +21,6 @@ public class DataGoKr {
 
     protected static SessionFactory factory;
     private String domain = "";
-    private String serviceKey="";
 
     static final Logger logger = LoggerFactory.getLogger(DataGoKr.class);
 
@@ -109,6 +106,7 @@ public class DataGoKr {
         System.setProperty("http.proxyHost", "172.30.4.18") ;
         System.setProperty("http.proxyPort", "8080");
     }
+
 
 
 

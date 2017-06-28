@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="com.nakanara.openapi1.apt.dao">
+<hibernate-mapping package="com.nakanara.openapi.apt.dao">
     <class name="TcCodeDao" table="TC_CODE">
         <meta attribute="class-description">
             This class contains the employee detail.

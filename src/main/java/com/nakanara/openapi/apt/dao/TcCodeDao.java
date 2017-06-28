@@ -1,4 +1,4 @@
-package com.nakanara.openapi1.apt.dao;
+package com.nakanara.openapi.apt.dao;
 
 
 import javax.persistence.Entity;
