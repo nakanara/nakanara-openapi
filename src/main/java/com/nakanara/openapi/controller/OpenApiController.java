@@ -29,4 +29,13 @@ public class OpenApiController {
         openApiAptService.getLocationCode();
         return new ModelAndView("welcome", "message", message);
     }
+
+    @RequestMapping("collectionApt.do")
+    public ModelAndView collectionAptDeal(){
+        logger.info("Start Collection");
+        openApiAptService.startOpenApi_Apt();
+
+        String message = "Start Collection";
+        return new ModelAndView("welcome", "message", message);
+    }
 }

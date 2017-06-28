@@ -20,6 +20,8 @@
             <a href="welcome.do">Click here to See Welcome Message... </a>(to
             check Spring MVC Controller... @RequestMapping("/welcome"))
         </h3>
+
+        <a href="/collectionApt.do"> Click Collection Apt Deal</a><br/>
     </div>
 </body>
 </html>

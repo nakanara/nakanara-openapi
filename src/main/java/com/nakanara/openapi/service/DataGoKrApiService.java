@@ -20,7 +20,6 @@ import java.util.Map;
 /**
  * Created by steg on 2017-06-27.
  */
-@Service("dataGoKrApiService")
 public class DataGoKrApiService extends HibernateDaoSupport {
 
     @Resource(name = "sessionFactory")

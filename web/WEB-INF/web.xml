@@ -2,26 +2,25 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
     <display-name>OpenApi1</display-name>
     <description>Open Api</description>
-    <!--
-        <listener>
-            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-        </listener>
-        <context-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>
-                /WEB-INF/spring/application-context.xml
-                /WEB-INF/spring/application-context-security.xml
-            </param-value>
-        </context-param>-->
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/classes/conf/spring-dataSource.xml
+        </param-value>
+    </context-param>
 
 
     <servlet>
-        <servlet-name>openapi1</servlet-name>
+        <servlet-name>openapi</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>openapi1</servlet-name>
+        <servlet-name>openapi</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
@@ -43,12 +42,6 @@
         <session-timeout>300</session-timeout>
     </session-config>
 -->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            /WEB-INF/conf/spring-dataSource.xml
-        </param-value>
-    </context-param>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
