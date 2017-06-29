@@ -16,6 +16,9 @@
         <property name="rtmsSeq" type="string" column="rtmsSeq"/>
         <property name="rtmsBullingYY" column="rtmsBullingYY" type="int"/>
         <property name="rtmsDealMoney" column="rtmsDealMoney" type="long"/>
+        <property name="rtmsLeaseMoney" column="rtmsLeaseMoney" type="long"/>
+        <property name="rtmsRantMoney" column="rtmsRantMoney" type="long"/>
+
         <property name="rtmsDealYY" column="rtmsDealYY" type="int"/>
         <property name="rtmsDealMM" column="rtmsDealMM" type="int" />
         <property name="rtmsDealDD" column="rtmsDealDD" type="string" />
@@ -27,10 +30,12 @@
         <property name="rtmsAreaName" column="rtmsAreaName" type="string" />
         <property name="rtmsAreaNameCode" column="rtmsAreaNameCode" type="string" />
         <property name="rtmsAreaNameSubCode" column="rtmsAreaNameSubCode" type="string" />
-        <property name="rtmsLocalCode" column="rtmsLocalCode" type="long" />
+        <property name="rtmsLocalCode" column="rtmsLocalCode" type="int" />
         <property name="rtmsName" column="rtmsName" type="string" />
-        <property name="rtmsFloor" column="rtmsFloor" type="long" />
+        <property name="rtmsFloor" column="rtmsFloor" type="int" />
         <property name="rtmsAreaSize" column="rtmsAreaSize" type="double" />
+
+        <property name="rtmsType" column="rtmsType" type="string" />
         <property name="rtmsRaw" column="rtmsRaw" type="string" />
     </class>
 

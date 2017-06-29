@@ -20,12 +20,17 @@ import java.util.Map;
 /**
  * Created by steg on 2017-06-27.
  */
-public class DataGoKrApiService extends HibernateDaoSupport {
+public class DataGoKrApiService {
 
-    @Resource(name = "sessionFactory")
-    private SessionFactory sessionFactory = null;
+    public static final String URL_APT_DEAL = "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev";   // TODO
+    public static final String URL_APT_RANT = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";    // todo
 
-    private String domain = "";
+    protected static final String OPEN_API_SERVICE_KEY = "QgX6nsZoNT8G5bftv6CNm3HWssSJfvoYKsYZir6wR5sLAg1AgJ4POz8pE7JYyotFJHpE3hNSNc%2F2uVrfiMGmKQ%3D%3D"; // TODO
+
+
+
+    @Resource(name="sessionFactory")
+    private SessionFactory sessionFactory;
 
     static final Logger logger = LoggerFactory.getLogger(DataGoKrApiService.class);
 
@@ -34,8 +39,7 @@ public class DataGoKrApiService extends HibernateDaoSupport {
      * @param domain
      * @param params
      */
-    public void dataGoKrInit(String domain, Map<String, String> params) {
-        this.domain = domain;
+    public String dataGoKrInit(String domain, Map<String, String> params) {
 
         Iterator<String> it = params.keySet().iterator();
         StringBuffer buf = new StringBuffer();
@@ -51,7 +55,9 @@ public class DataGoKrApiService extends HibernateDaoSupport {
 
         logger.info("domain: {}, params: {}", domain, buf.toString());
 
-        this.domain = domain + "?" + buf.toString();
+        domain = domain + "?" + buf.toString();
+
+        return domain;
 
     }
 
@@ -60,22 +66,22 @@ public class DataGoKrApiService extends HibernateDaoSupport {
      * 데이터 수집.
      * @return
      */
-    public String collection() {
-        perSetting();
+    public String collection(String collectinUrl) {
+        //perSetting();
 
         StringBuffer buf = new StringBuffer();
         BufferedReader in = null;
 
-        if(StringUtil.isEmpty(domain)) {
-            logger.error("Domain is Empty = {}", domain);
+        if(StringUtil.isEmpty(collectinUrl)) {
+            logger.error("Domain is Empty = {}", collectinUrl);
             return "{}";
         }
 
         try {
 
-            String http_url = this.domain;
+            String http_url = collectinUrl;
 
-            logger.debug("collection Start Domain={} url={}", domain, http_url);
+            logger.debug("collection Start Domain={}", collectinUrl);
 
             URL url = new URL(http_url);
             URLConnection con = url.openConnection();

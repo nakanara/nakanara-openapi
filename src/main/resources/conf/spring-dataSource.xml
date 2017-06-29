@@ -23,8 +23,17 @@
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
        default-autowire="byName">
 
+<!--
+    <bean
+            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>properties/database.properties</value>
+        </property>
+    </bean>
+-->
+
     <bean id="dataSource"
-          class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.OracleDriver" />
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
         <property name="username" value="openapi_law" />
@@ -33,45 +42,95 @@
 
 
 
+    <!--
+    출처: http://javacan.tistory.com/entry/101 [자바캔(Java Can Do IT)]
+
+    hibernate.dbcp.whenExhaustedActio: 풀에서 더이상 가져올 수 있는 커넥션이 없을 때 어떻게 처리할지를 명시한다. 값이 1이면, 풀에서 가져올 커넥션이 생길 때 까지 블럭킹된다. 값이 2이면, 풀은 새로운 커넥션을 생성해서 리턴한다. 값이 0이면, 에러를 발생시킨다. 기본값은 1이다.
+    SQL Dialect: Hibernate는 특정 DBMS가 제공하는 기능을 사용할 수 있는 기능을 제공하며, Dialect 프로퍼티를 사용해서 이 기능을 사용할 수 있다
+
+    -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.jdbc.use_get_generated_keys">true</prop>
                 <prop key="show_sql">true</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.generate_statistics">true</prop>
-                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--<prop key="hibernate.format_sql">true</prop>-->
+<!--                <prop key="hibernate.generate_statistics">true</prop>-->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="connection.autoReconnect">true</prop>
+                <prop key="connection.autoReconnectForPools">true</prop>
+<!--                <prop key="connection.is-connection-validation-required">true</prop>-->
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</prop>
             </props>
         </property>
-        <property name="mappingResources">
-            <list>
-                <value>conf/mapping/RTMSDao.hmb.xml</value>
-                <value>conf/mapping/TC_CODE.hmb.xml</value>
-            </list>
+        <property name="mappingLocations">
+            <value>classpath*:conf/mapping/*.hmb.xml</value>
         </property>
-
     </bean>
+
+    <!-- EntityManagerFactory -->
+    <!--
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          p:packagesToScan="com.nakanara.openapi"
+          p:dataSource-ref="dataSource"
+    >
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true" />
+                <property name="showSql" value="true" />
+            </bean>
+        </property>
+    </bean>
+-->
+
 
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+    <!--
+    <bean id="template" class="org.springframework.orm.hibernate5.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+        <property name="checkWriteOperations" value="false"></property>
+    </bean>
+-->
+
+    <!--
+
+    <bean id="transactionInterceptor"
+          class="org.springframework.transaction.interceptor.TransactionInterceptor">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="transactionAttributes">
+            <props>
+                <prop key="save*">PROPAGATION_REQUIRED</prop>
+                <prop key="start*">PROPAGATION_REQUIRED</prop>
+                <prop key="del*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+-->
+
+
+    <!-- TransactionManager -->
+    <!--
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+-->
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="get*" read-only="true" />
-            <tx:method name="find*" read-only="true" />
-            <tx:method name="*" />
+            <tx:method name="*" read-only="false" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
 
     <aop:config>
         <aop:pointcut id="userServicePointCut"
-                      expression="execution(* com.nakanara.openapi.service.*(..))" />
-
+                      expression="execution(* com.nakanara.openapi..service.*(..))" />
         <aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" />
     </aop:config>
 

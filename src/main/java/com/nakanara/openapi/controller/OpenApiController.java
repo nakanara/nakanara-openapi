@@ -33,8 +33,8 @@ public class OpenApiController {
     @RequestMapping("collectionApt.do")
     public ModelAndView collectionAptDeal(){
         logger.info("Start Collection");
-        openApiAptService.startOpenApi_Apt();
-
+        openApiAptService.startOpenApi_AptDeal();
+        openApiAptService.startOpenApi_AptRant();
         String message = "Start Collection";
         return new ModelAndView("welcome", "message", message);
     }

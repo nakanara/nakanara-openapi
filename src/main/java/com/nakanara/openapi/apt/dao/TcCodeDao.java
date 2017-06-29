@@ -2,16 +2,18 @@ package com.nakanara.openapi.apt.dao;
 
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Created by steg on 2017-06-23.
  */
 
-@Entity(name="tcCode")
+@Entity
 public class TcCodeDao {
 
     private String code_type;
 
+    @Id
     private String code_id;
 
     private String code_name;

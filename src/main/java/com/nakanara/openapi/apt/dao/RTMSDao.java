@@ -1,8 +1,13 @@
 package com.nakanara.openapi.apt.dao;
 
 import com.nakanara.util.DataKrUtil;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -10,29 +15,41 @@ import java.util.Map;
  * Created by steg on 2017-06-22.
  */
 @Entity(name = "Rtms")
+@Data
 public class RTMSDao implements Serializable{
 
-    private int rtmsNo; // 일련번호
+    public static final String RTMS_DEAL = "APT_TYPE_01";  // 매매
+    public static final String RTMS_LEASE  = "APT_TYPE_02";  // 전세
+    public static final String RTMS_RANT = "APT_TYPE_03";  // 월세
 
-    private int rtmsBullingYY; // 건축년도
-    private long rtmsDealMoney; // 거래 금액
-    private int rtmsDealYY;    // 거래 년
-    private int rtmsDealMM;   // 거래 월
-    private String rtmsDealDD;  // 거래 주.
-    private String rtmsLoadName;    // 도로 명
-    private String rtmsLoadMainNum; // 도로명건물본번호코드
-    private String rtmsLoadSubNum;    // 도로명건물부번호코드
-    private String rtmsLoadNum;   // 도로명일련번호코드
-    private String rtmsLoadCode;  // 도로명시군구코드
-    private String rtmsAreaName;    // 법정동
-    private String rtmsAreaNameCode;    // 법정동본번코드
-    private String rtmsAreaNameSubCode;    // 법정동부번코드
-    private long rtmsLocalCode; // 지역코드
-    private String rtmsName;    // 상호
-    private long rtmsFloor;     // 층.
-    private String rtmsSeq; // 일련번호
-    private double rtmsAreaSize;    // 면적
-    private String rtmsRaw; // 근본 데이터.
+
+    @Id
+    @Getter @Setter private int rtmsNo; // 일련번호
+
+    @Getter @Setter private int rtmsBullingYY; // 건축년도
+    @Getter @Setter private long rtmsDealMoney = 0L; // 거래 금액
+    @Getter @Setter private int rtmsDealYY;    // 거래 년
+    @Getter @Setter private int rtmsDealMM;   // 거래 월
+    @Getter @Setter private String rtmsDealDD;  // 거래 주.
+    @Getter @Setter private String rtmsLoadName;    // 도로 명
+    @Getter @Setter private String rtmsLoadMainNum; // 도로명건물본번호코드
+    @Getter @Setter private String rtmsLoadSubNum;    // 도로명건물부번호코드
+    @Getter @Setter private String rtmsLoadNum;   // 도로명일련번호코드
+    @Getter @Setter private String rtmsLoadCode;  // 도로명시군구코드
+    @Getter @Setter private String rtmsAreaName;    // 법정동
+    @Getter @Setter private String rtmsAreaNameCode;    // 법정동본번코드
+    @Getter @Setter private String rtmsAreaNameSubCode;    // 법정동부번코드
+    @Getter @Setter private int rtmsLocalCode; // 지역코드
+    @Getter @Setter private String rtmsName;    // 상호
+    @Getter @Setter private int rtmsFloor;     // 층.
+    @Getter @Setter private String rtmsSeq; // 일련번호
+    @Getter @Setter private double rtmsAreaSize;    // 면적
+    @Getter @Setter private String rtmsRaw; // 근본 데이터.
+
+    @Getter @Setter private long rtmsLeaseMoney = 0L; // 보증금.
+    @Getter @Setter private long rtmsRantMoney = 0L; // 월세 금액
+
+    @Getter @Setter private String rtmsType = RTMS_DEAL;    // 매매, 전세, 월세 타입.
 
     public RTMSDao() {
 
@@ -55,7 +72,7 @@ public class RTMSDao implements Serializable{
         // 도로명시군구코드=11110.0,
 
         // 도로명일련번호코드=03,
-        this.rtmsLoadNum = DataKrUtil.getDataKrString(m.get("도로명일련번호코드"));
+        this.rtmsLoadNum = DataKrUtil.getDataKrDoubleToString(m.get("도로명일련번호코드"));
         // 도로명지상지하코드=0.0,
         // 도로명코드=4100135.0,
         this.rtmsLoadCode = ""+DataKrUtil.getDataKrCnvertDoubleToInt(m.get("도로명코드"));
@@ -82,193 +99,20 @@ public class RTMSDao implements Serializable{
         // 층=6.0}
         this.rtmsFloor = DataKrUtil.getDataKrCnvertDoubleToInt(m.get("층"));
 
+        /* 전/월세 */
+        this.rtmsLeaseMoney = DataKrUtil.getDataKrLong(m.get("보증금액"));
+        this.rtmsRantMoney = DataKrUtil.getDataKrLong(m.get("월세금액"));
+
+
+        if(this.rtmsDealMoney > 0) {
+            rtmsType = RTMSDao.RTMS_DEAL;
+        } else if(this.rtmsLeaseMoney > 0 && this.rtmsRantMoney == 0) {
+            rtmsType = RTMSDao.RTMS_LEASE;
+        } else if(this.rtmsRantMoney > 0) {
+            rtmsType = RTMSDao.RTMS_RANT;
+        }
+
         this.rtmsRaw = m.toString();
     }
 
-
-    public int getRtmsNo() {
-        return rtmsNo;
-    }
-
-    public void setRtmsNo(int rtmsNo) {
-        this.rtmsNo = rtmsNo;
-    }
-
-    public int getRtmsBullingYY() {
-        return rtmsBullingYY;
-    }
-
-    public void setRtmsBullingYY(int rtmsBullingYY) {
-        this.rtmsBullingYY = rtmsBullingYY;
-    }
-
-    public long getRtmsDealMoney() {
-        return rtmsDealMoney;
-    }
-
-    public void setRtmsDealMoney(long rtmsDealMoney) {
-        this.rtmsDealMoney = rtmsDealMoney;
-    }
-
-    public int getRtmsDealYY() {
-        return rtmsDealYY;
-    }
-
-    public void setRtmsDealYY(int rtmsDealYY) {
-        this.rtmsDealYY = rtmsDealYY;
-    }
-
-    public long getRtmsDealMM() {
-        return rtmsDealMM;
-    }
-
-    public void setRtmsDealMM(int rtmsDealMM) {
-        this.rtmsDealMM = rtmsDealMM;
-    }
-
-    public String getRtmsDealDD() {
-        return rtmsDealDD;
-    }
-
-    public void setRtmsDealDD(String rtmsDealDD) {
-        this.rtmsDealDD = rtmsDealDD;
-    }
-
-    public String getRtmsLoadName() {
-        return rtmsLoadName;
-    }
-
-    public void setRtmsLoadName(String rtmsLoadName) {
-        this.rtmsLoadName = rtmsLoadName;
-    }
-
-    public String getRtmsLoadMainNum() {
-        return rtmsLoadMainNum;
-    }
-
-    public void setRtmsLoadMainNum(String rtmsLoadMainNum) {
-        this.rtmsLoadMainNum = rtmsLoadMainNum;
-    }
-
-    public String getRtmsLoadSubNum() {
-        return rtmsLoadSubNum;
-    }
-
-    public void setRtmsLoadSubNum(String rtmsLoadSubNum) {
-        this.rtmsLoadSubNum = rtmsLoadSubNum;
-    }
-
-    public String getRtmsLoadNum() {
-        return rtmsLoadNum;
-    }
-
-    public void setRtmsLoadNum(String rtmsLoadNum) {
-        this.rtmsLoadNum = rtmsLoadNum;
-    }
-
-    public String getRtmsLoadCode() {
-        return rtmsLoadCode;
-    }
-
-    public void setRtmsLoadCode(String rtmsLoadCode) {
-        this.rtmsLoadCode = rtmsLoadCode;
-    }
-
-    public String getRtmsAreaName() {
-        return rtmsAreaName;
-    }
-
-    public void setRtmsAreaName(String rtmsAreaName) {
-        this.rtmsAreaName = rtmsAreaName;
-    }
-
-    public String getRtmsAreaNameCode() {
-        return rtmsAreaNameCode;
-    }
-
-    public void setRtmsAreaNameCode(String rtmsAreaNameCode) {
-        this.rtmsAreaNameCode = rtmsAreaNameCode;
-    }
-
-    public String getRtmsAreaNameSubCode() {
-        return rtmsAreaNameSubCode;
-    }
-
-    public void setRtmsAreaNameSubCode(String rtmsAreaNameSubCode) {
-        this.rtmsAreaNameSubCode = rtmsAreaNameSubCode;
-    }
-
-    public long getRtmsLocalCode() {
-        return rtmsLocalCode;
-    }
-
-    public void setRtmsLocalCode(long rtmsLocalCode) {
-        this.rtmsLocalCode = rtmsLocalCode;
-    }
-
-    public String getRtmsName() {
-        return rtmsName;
-    }
-
-    public void setRtmsName(String rtmsName) {
-        this.rtmsName = rtmsName;
-    }
-
-    public long getRtmsFloor() {
-        return rtmsFloor;
-    }
-
-    public void setRtmsFloor(long rtmsFloor) {
-        this.rtmsFloor = rtmsFloor;
-    }
-
-    public String getRtmsSeq() {
-        return rtmsSeq;
-    }
-
-    public void setRtmsSeq(String rtmsSeq) {
-        this.rtmsSeq = rtmsSeq;
-    }
-
-    public double getRtmsAreaSize() {
-        return rtmsAreaSize;
-    }
-
-    public void setRtmsAreaSize(double rtmsAreaSize) {
-        this.rtmsAreaSize = rtmsAreaSize;
-    }
-
-    public String getRtmsRaw() {
-        return rtmsRaw;
-    }
-
-    public void setRtmsRaw(String rtmsRaw) {
-        this.rtmsRaw = rtmsRaw;
-    }
-
-    @Override
-    public String toString() {
-        return "RTMSDao{" +
-                "rtmsNo=" + rtmsNo +
-                ", rtmsBullingYY=" + rtmsBullingYY +
-                ", rtmsDealMoney=" + rtmsDealMoney +
-                ", rtmsDealYY=" + rtmsDealYY +
-                ", rtmsDealMM=" + rtmsDealMM +
-                ", rtmsDealDD='" + rtmsDealDD + '\'' +
-                ", rtmsLoadName='" + rtmsLoadName + '\'' +
-                ", rtmsLoadMainNum='" + rtmsLoadMainNum + '\'' +
-                ", rtmsLoadSubNum='" + rtmsLoadSubNum + '\'' +
-                ", rtmsLoadNum='" + rtmsLoadNum + '\'' +
-                ", rtmsLoadCode='" + rtmsLoadCode + '\'' +
-                ", rtmsAreaName='" + rtmsAreaName + '\'' +
-                ", rtmsAreaNameCode='" + rtmsAreaNameCode + '\'' +
-                ", rtmsAreaNameSubCode='" + rtmsAreaNameSubCode + '\'' +
-                ", rtmsLocalCode=" + rtmsLocalCode +
-                ", rtmsName='" + rtmsName + '\'' +
-                ", rtmsFloor=" + rtmsFloor +
-                ", rtmsSeq='" + rtmsSeq + '\'' +
-                ", rtmsAreaSize=" + rtmsAreaSize +
-                ", rtmsRaw='" + rtmsRaw + '\'' +
-                '}';
-    }
 }

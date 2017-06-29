@@ -67,6 +67,22 @@ public class DataKrUtil {
         return i;
     }
 
+    public static String getDataKrCnvertDoubleToString(Object o) {
+        double l = 0;
+        int i=0;
+        String s="";
+        if(o == null) return "";
+
+        try{
+            l = (Double) o;
+            i = (int)l;
+            s = "" + i;
+        }catch(ClassCastException cce){
+            logger.error("getDataKrCnvertDoubleToString Error {}", cce);
+        }
+        return s;
+    }
+
     public static String getDataKrString(Object o) {
         String s = "";
         if(o == null) return s;
