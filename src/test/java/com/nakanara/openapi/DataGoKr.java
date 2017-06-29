@@ -61,7 +61,7 @@ public class DataGoKr {
 
 
     public String collection() {
-        perSetting();
+//        perSetting();
 
         StringBuffer buf = new StringBuffer();
         /*if(StringUtil.isEmpty(domain)) {
