@@ -15,3 +15,11 @@ INSERT INTO TC_CODE (CODE_ID, CODE_NAME) VALUES ('APT_TYPE_03', '월세');
 alter table TB_RTMS add(rtmsLeaseMoney number);
 alter table TB_RTMS add(rtmsRantMoney number);
 alter table TB_RTMS add(rtmsType varchar2(20));
+
+
+--- 2017.06.30
+
+alter table tb_rtms modify
+(
+   RTMSLOCALCODE   varchar2(100)
+);

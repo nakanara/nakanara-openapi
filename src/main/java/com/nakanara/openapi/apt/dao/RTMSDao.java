@@ -39,9 +39,9 @@ public class RTMSDao implements Serializable{
     @Getter @Setter private String rtmsAreaName;    // 법정동
     @Getter @Setter private String rtmsAreaNameCode;    // 법정동본번코드
     @Getter @Setter private String rtmsAreaNameSubCode;    // 법정동부번코드
-    @Getter @Setter private int rtmsLocalCode; // 지역코드
+    @Getter @Setter private String rtmsLocalCode; // 지역코드
     @Getter @Setter private String rtmsName;    // 상호
-    @Getter @Setter private int rtmsFloor;     // 층.
+    @Getter @Setter private String rtmsFloor;     // 층.
     @Getter @Setter private String rtmsSeq; // 일련번호
     @Getter @Setter private double rtmsAreaSize;    // 면적
     @Getter @Setter private String rtmsRaw; // 근본 데이터.
@@ -95,9 +95,9 @@ public class RTMSDao implements Serializable{
         this.rtmsAreaSize = DataKrUtil.getDataKrDouble(m.get("전용면적"));
         // 지번=9.0,
         // 지역코드=11110.0,
-        this.rtmsLocalCode = DataKrUtil.getDataKrCnvertDoubleToInt(m.get("지역코드"));
+        this.rtmsLocalCode = DataKrUtil.getDataKrCnvertDoubleToString(m.get("지역코드"));
         // 층=6.0}
-        this.rtmsFloor = DataKrUtil.getDataKrCnvertDoubleToInt(m.get("층"));
+        this.rtmsFloor = DataKrUtil.getDataKrCnvertDoubleToString(m.get("층"));
 
         /* 전/월세 */
         this.rtmsLeaseMoney = DataKrUtil.getDataKrLong(m.get("보증금액"));

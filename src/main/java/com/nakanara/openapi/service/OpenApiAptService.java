@@ -273,4 +273,15 @@ public class OpenApiAptService extends DataGoKrApiService {
 
     }
 
+    public List<RTMSDao> getAptList() {
+        Session session = sessionFactory.openSession();
+
+        Query query = session.createQuery("from RTMSDao where rtmsDealYY = ? and rownum < 10");
+        query.setParameter(0, 2017);
+        List<RTMSDao> list = query.list();
+
+        return list;
+
+    }
+
 }

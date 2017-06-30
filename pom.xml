@@ -15,6 +15,7 @@
         <!-- AspectJ -->
         <aspectj.version>1.8.10</aspectj.version>
         <hibernate.version>5.0.12.Final</hibernate.version>
+        <jackson.library>2.8.9</jackson.library>
     </properties>
 
     <dependencies>
@@ -163,10 +164,17 @@
             <scope>provided</scope>
         </dependency>
 
-
-
-
-
+        <!-- @RestController -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.library}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${jackson.library}</version>
+        </dependency>
 
     </dependencies>
 

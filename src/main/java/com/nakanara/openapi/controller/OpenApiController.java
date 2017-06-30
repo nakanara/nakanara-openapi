@@ -1,13 +1,17 @@
 package com.nakanara.openapi.controller;
 
+import com.nakanara.openapi.apt.dao.RTMSDao;
 import com.nakanara.openapi.service.OpenApiAptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by steg on 2017-06-26.
@@ -38,4 +42,5 @@ public class OpenApiController {
         String message = "Start Collection";
         return new ModelAndView("welcome", "message", message);
     }
+
 }

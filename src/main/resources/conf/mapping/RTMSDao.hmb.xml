@@ -30,9 +30,9 @@
         <property name="rtmsAreaName" column="rtmsAreaName" type="string" />
         <property name="rtmsAreaNameCode" column="rtmsAreaNameCode" type="string" />
         <property name="rtmsAreaNameSubCode" column="rtmsAreaNameSubCode" type="string" />
-        <property name="rtmsLocalCode" column="rtmsLocalCode" type="int" />
+        <property name="rtmsLocalCode" column="rtmsLocalCode" type="string" />
         <property name="rtmsName" column="rtmsName" type="string" />
-        <property name="rtmsFloor" column="rtmsFloor" type="int" />
+        <property name="rtmsFloor" column="rtmsFloor" type="string" />
         <property name="rtmsAreaSize" column="rtmsAreaSize" type="double" />
 
         <property name="rtmsType" column="rtmsType" type="string" />
