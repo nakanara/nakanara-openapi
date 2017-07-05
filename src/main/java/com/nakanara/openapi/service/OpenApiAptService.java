@@ -53,7 +53,7 @@ public class OpenApiAptService extends DataGoKrApiService {
      */
     @Transactional(readOnly = false)
     public void startOpenApi_AptDeal() {
-        startOpenApi_AptDeal(URL_APT_DEAL, DateUtil.getYYMM());
+        startOpenApi_AptDeal(URL_APT_DEAL, DateUtil.getYYMM(-1));
 
         /*        Session session = sessionFactory.openSession();
         Transaction tx = null;
@@ -107,7 +107,7 @@ public class OpenApiAptService extends DataGoKrApiService {
     @Transactional(readOnly = false)
     public void startOpenApi_AptRant() {
 
-        startOpenApi_AptRant(URL_APT_RANT, DateUtil.getYYMM());
+        startOpenApi_AptRant(URL_APT_RANT, DateUtil.getYYMM(-1));
 
 
         /*        Session session = sessionFactory.openSession();
