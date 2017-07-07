@@ -2,6 +2,7 @@ package com.nakanara.openapi;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.junit.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +12,9 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,7 +28,7 @@ public class DataGoKr {
     static final Logger logger = LoggerFactory.getLogger(DataGoKr.class);
 
 
-    public DataGoKr(){
+    /*public DataGoKr(){
         try{
             logger.info("INIT DataGoKr");
             factory = new Configuration().configure("/conf/hibernate-config.xml")
@@ -33,7 +36,8 @@ public class DataGoKr {
         }catch(Exception e) {
             logger.error("Failed to create sessionFactory object. {}", e);
         }
-    }
+    }*/
+
     public void dataGoKrInit(String domain) {
         this.domain = domain;
     }
@@ -107,6 +111,20 @@ public class DataGoKr {
         System.setProperty("http.proxyPort", "8080");
     }
 
+
+
+    @org.junit.Test
+    public void test(){
+
+        String names[] = {"a","b"};
+        String names2[] = {"a","b"};
+        Assert.assertArrayEquals(names2, names);
+
+        List someList = new ArrayList();
+        Assert.assertNotNull("조회결과 null", someList);
+        Assert.assertTrue(someList.size() > 0);
+        Assert.assertEquals(3, someList.size());
+    }
 
 
 
