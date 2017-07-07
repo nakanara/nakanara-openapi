@@ -16,11 +16,15 @@ public class DataKrUtil {
         if(o == null) return l;
 
         try{
-            s = (String)o;
-            s = s.replaceAll(",", "");
-            l = Integer.parseInt(s.trim());
+            if(o instanceof Integer)
+                l = (int) o;
+            else {
+                s = (String) o;
+                s = s.replaceAll(",", "");
+                l = Integer.parseInt(s.trim());
+            }
         }catch(ClassCastException cce){
-            logger.error("getDataKrInt Error {}", cce);
+            logger.error("getDataKrInt Error org {} / {}", o, cce);
         }
         return l;
     }
@@ -48,7 +52,7 @@ public class DataKrUtil {
         try{
             l = (Double) o;
         }catch(ClassCastException cce){
-            logger.error("getDataKrDouble Error {}", cce);
+            logger.error("getDataKrDouble Error org {} / {}",o,  cce);
         }
         return l;
     }
@@ -62,7 +66,7 @@ public class DataKrUtil {
             l = (Double) o;
             i = (int)l;
         }catch(ClassCastException cce){
-            logger.error("getDataKrDouble Error {}", cce);
+            logger.error("getDataKrDouble Error Org {} / {}", o,  cce);
         }
         return i;
     }
@@ -78,7 +82,7 @@ public class DataKrUtil {
             i = (int)l;
             s = "" + i;
         }catch(ClassCastException cce){
-            logger.error("getDataKrCnvertDoubleToString Error {}", cce);
+            logger.error("getDataKrCnvertDoubleToString Error org {} / {}", o, cce);
         }
         return s;
     }
@@ -88,7 +92,9 @@ public class DataKrUtil {
         if(o == null) return s;
 
         try{
-            s = (String) o;
+            if(o instanceof Integer)
+                s = "" + o;
+            else s = (String) o;
         }catch(ClassCastException cce){
             logger.error("getDataKrString Error {} orgVal {} ", cce, o);
         }

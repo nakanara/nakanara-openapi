@@ -59,10 +59,10 @@ public class RTMSDao implements Serializable{
 
         //거래금액=   105,000,
         this.rtmsDealMoney = DataKrUtil.getDataKrLong(m.get("거래금액"));
-        // 건축년도=2008.0,
-        this.rtmsBullingYY = DataKrUtil.getDataKrCnvertDoubleToInt(m.get("건축년도"));
+        // 건축년도=2008,
+        this.rtmsBullingYY = DataKrUtil.getDataKrInt(m.get("건축년도"));
         // 년=2017.0,
-        this.rtmsDealYY = DataKrUtil.getDataKrCnvertDoubleToInt(m.get("년"));
+        this.rtmsDealYY = DataKrUtil.getDataKrInt(m.get("년"));
         // 도로명=사직로8길,
         this.rtmsLoadName = DataKrUtil.getDataKrString(m.get("도로명"));
         // 도로명건물본번호코드=00004,
@@ -72,21 +72,21 @@ public class RTMSDao implements Serializable{
         // 도로명시군구코드=11110.0,
 
         // 도로명일련번호코드=03,
-        this.rtmsLoadNum = DataKrUtil.getDataKrDoubleToString(m.get("도로명일련번호코드"));
+        this.rtmsLoadNum = DataKrUtil.getDataKrString(m.get("도로명일련번호코드"));
         // 도로명지상지하코드=0.0,
-        // 도로명코드=4100135.0,
-        this.rtmsLoadCode = ""+DataKrUtil.getDataKrCnvertDoubleToInt(m.get("도로명코드"));
+        // 도로명코드=4100135,
+        this.rtmsLoadCode = ""+DataKrUtil.getDataKrString(m.get("도로명코드"));
         // 법정동=사직동,
         this.rtmsAreaName = DataKrUtil.getDataKrString(m.get("법정동"));
         // 법정동본번코드=0009,
-        this.rtmsAreaNameCode = DataKrUtil.getDataKrDoubleToString(m.get("법정동본번코드"));
+        this.rtmsAreaNameCode = DataKrUtil.getDataKrString(m.get("법정동본번코드"));
         // 법정동부번코드=0000,
-        this.rtmsAreaNameSubCode = DataKrUtil.getDataKrDoubleToString(m.get("법정동부번코드"));
+        this.rtmsAreaNameSubCode = DataKrUtil.getDataKrString(m.get("법정동부번코드"));
         // 법정동시군구코드=11110.0, 법정동읍면동코드=11500.0, 법정동지번코드=1.0,
         // 아파트=광화문풍림스페이스본(9-0),
         this.rtmsName = DataKrUtil.getDataKrString(m.get("아파트"));
         // 월=6.0,
-        this.rtmsDealMM = DataKrUtil.getDataKrCnvertDoubleToInt(m.get("월"));
+        this.rtmsDealMM = DataKrUtil.getDataKrInt(m.get("월"));
         // 일=11~20,
         this.rtmsDealDD = DataKrUtil.getDataKrString(m.get("일"));
         // 일련번호=11110-2203,
@@ -95,9 +95,9 @@ public class RTMSDao implements Serializable{
         this.rtmsAreaSize = DataKrUtil.getDataKrDouble(m.get("전용면적"));
         // 지번=9.0,
         // 지역코드=11110.0,
-        this.rtmsLocalCode = DataKrUtil.getDataKrCnvertDoubleToString(m.get("지역코드"));
+        this.rtmsLocalCode = DataKrUtil.getDataKrString(m.get("지역코드"));
         // 층=6.0}
-        this.rtmsFloor = DataKrUtil.getDataKrCnvertDoubleToString(m.get("층"));
+        this.rtmsFloor = DataKrUtil.getDataKrString(m.get("층"));
 
         /* 전/월세 */
         this.rtmsLeaseMoney = DataKrUtil.getDataKrLong(m.get("보증금액"));
