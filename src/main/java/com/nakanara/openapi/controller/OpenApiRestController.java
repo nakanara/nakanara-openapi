@@ -25,7 +25,7 @@ public class OpenApiRestController {
     @Resource(name = "openApiAptService")
     private OpenApiAptService openApiAptService;
 
-    @RequestMapping(value= "getAptList.do", method = RequestMethod.GET)
+    @RequestMapping(value= "/getAptList.do", method = RequestMethod.GET, produces = "application/json")
     public Map<String, Object> getAptList(){
 
         List<RTMSDao> list = openApiAptService.getAptList();
@@ -34,4 +34,7 @@ public class OpenApiRestController {
         m.put("result", list);
         return m;
     }
+
+
+
 }

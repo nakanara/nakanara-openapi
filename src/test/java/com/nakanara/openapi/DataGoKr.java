@@ -1,8 +1,11 @@
 package com.nakanara.openapi;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.*;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,13 +25,15 @@ import java.util.Map;
  */
 public class DataGoKr {
 
-    protected static SessionFactory factory;
+    protected SessionFactory factory;
     private String domain = "";
 
     static final Logger logger = LoggerFactory.getLogger(DataGoKr.class);
 
 
-    /*public DataGoKr(){
+    @Before
+    public void setUp(){
+        logger.info("setUp");
         try{
             logger.info("INIT DataGoKr");
             factory = new Configuration().configure("/conf/hibernate-config.xml")
@@ -36,7 +41,13 @@ public class DataGoKr {
         }catch(Exception e) {
             logger.error("Failed to create sessionFactory object. {}", e);
         }
-    }*/
+    }
+
+    @After
+    public void shutdown(){
+        logger.info("shut down");
+    }
+
 
     public void dataGoKrInit(String domain) {
         this.domain = domain;
@@ -122,10 +133,34 @@ public class DataGoKr {
 
         List someList = new ArrayList();
         Assert.assertNotNull("조회결과 null", someList);
-        Assert.assertTrue(someList.size() > 0);
-        Assert.assertEquals(3, someList.size());
+        Assert.assertTrue(someList.size() == 0);
+        Assert.assertEquals(0, someList.size());
     }
 
+
+    @Test
+    public void getDynamicTest() {
+        Session session = factory.openSession();
+
+        Query query = null;
+
+        query = session.createSQLQuery("select rtmsdealyy\n" +
+                "    , rtmsdealmm\n" +
+                "    , rtmslocalcode\n" +
+                "    , (select code_name from tc_code c where code_type = 'LAWD' and c.code_id = rtmslocalcode) localname\n" +
+                "    , rtmsdealdd\n" +
+                "    , count(*) cnt \n" +
+                "    , round(avg(rtmsdealmoney)) money\n" +
+                "from tb_rtms\n" +
+                "where rtmstype = 'APT_TYPE_01'\n" +
+                "group by rtmsdealyy, rtmsdealmm, rtmsdealdd, rtmslocalcode");
+
+        List<Map> list = query.list();
+
+        logger.info("List Size={}", list.size());
+
+        Assert.assertTrue(list.size() > 0);
+    }
 
 
     public static void main(String args[]) {
