@@ -2,6 +2,8 @@ package com.nakanara.openapi.controller;
 
 import com.nakanara.openapi.apt.dao.RTMSDao;
 import com.nakanara.openapi.service.OpenApiAptService;
+import com.nakanara.util.DateUtil;
+import com.nakanara.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -35,12 +37,19 @@ public class OpenApiController {
     }
 
     @RequestMapping("collectionApt.do")
-    public ModelAndView collectionAptDeal(){
-        logger.info("Start Collection");
-        openApiAptService.startOpenApi_AptDeal();
-        openApiAptService.startOpenApi_AptRant();
+    public ModelAndView collectionAptDeal(String coll_yymm){
+        logger.info("Start Collection coll_yymm={}", coll_yymm);
+
+        if(StringUtil.isEmpty(coll_yymm)) {
+            coll_yymm = DateUtil.getYYMM(0);
+        }
+
+        openApiAptService.startOpenApi_AptDeal(coll_yymm);
+        openApiAptService.startOpenApi_AptRant(coll_yymm);
         String message = "Start Collection";
         return new ModelAndView("welcome", "message", message);
     }
+
+
 
 }

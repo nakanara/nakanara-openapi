@@ -50,7 +50,11 @@ public class DataKrUtil {
         if(o == null) return l;
 
         try{
-            l = (Double) o;
+            if(o instanceof Integer) {
+                l = ((Integer) o).doubleValue();
+            } else {
+                l = (Double) o;
+            }
         }catch(ClassCastException cce){
             logger.error("getDataKrDouble Error org {} / {}",o,  cce);
         }

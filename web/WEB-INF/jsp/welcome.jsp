@@ -22,5 +22,7 @@
             href='https://crunchify.com/category/spring-mvc/' target='_blank'>here</a>
         for all Spring MVC, Web Development examples.<br>
     </div>
+
+<div><a href="/v1/testCollection.jsp">Back Collection Home</a></div>
 </body>
 </html>

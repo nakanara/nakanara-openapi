@@ -51,26 +51,8 @@ public class OpenApiAptService extends DataGoKrApiService {
      * 아파트 구매 내역.
      */
     @Transactional(readOnly = false)
-    public void startOpenApi_AptDeal() {
-        startOpenApi_AptDeal(URL_APT_DEAL, DateUtil.getYYMM(-1));
-
-        /*        Session session = sessionFactory.openSession();
-        Transaction tx = null;
-
-        try {
-            tx = session.beginTransaction();
-
-            //this("");
-            delRTMSYYMM(DateUtil.getYYMM());
-            //startOpenApi_Apt(DateUtil.getYYMM());
-
-            tx.commit();
-        } catch(HibernateException e){
-            if(tx != null) tx.commit();
-            logger.error("addRTMS {}", e);
-        }finally {
-            session.close();
-        }*/
+    public void startOpenApi_AptDeal(String yymm) {
+        startOpenApi_AptDeal(URL_APT_DEAL, yymm);
     }
 
     /**
@@ -104,28 +86,10 @@ public class OpenApiAptService extends DataGoKrApiService {
      * 아파트 전세/월세
      */
     @Transactional(readOnly = false)
-    public void startOpenApi_AptRant() {
+    public void startOpenApi_AptRant(String yymm) {
 
-        startOpenApi_AptRant(URL_APT_RANT, DateUtil.getYYMM(-1));
+        startOpenApi_AptRant(URL_APT_RANT, yymm);
 
-
-        /*        Session session = sessionFactory.openSession();
-        Transaction tx = null;
-
-        try {
-            tx = session.beginTransaction();
-
-            //this("");
-            delRTMSYYMM(DateUtil.getYYMM());
-            //startOpenApi_Apt(DateUtil.getYYMM());
-
-            tx.commit();
-        } catch(HibernateException e){
-            if(tx != null) tx.commit();
-            logger.error("addRTMS {}", e);
-        }finally {
-            session.close();
-        }*/
     }
 
     public void startOpenApi_AptRant(String domain, String yymm) {
@@ -198,8 +162,17 @@ public class OpenApiAptService extends DataGoKrApiService {
                 ObjectMapper mapper = new ObjectMapper();
                 Map<String, Object> jsonObject = mapper.readValue(jsonData, HashMap.class);
 
-
                 Map<String, Object> response = (Map) jsonObject.get("response");
+
+                Map<String, Object> header = (Map) response.get("header");
+
+                String resultCode = ""+header.get("resultCode");
+                if(!"00".equals(resultCode)) {
+                    // TODO Log 표시
+                    logger.info("Error Code !!!!{}", resultCode);
+                    return 0;
+                }
+
 
                 Map<String, Object> body = (Map) response.get("body");
                 totalCount = (int) DataKrUtil.getDataKrInt(body.get("totalCount"));
