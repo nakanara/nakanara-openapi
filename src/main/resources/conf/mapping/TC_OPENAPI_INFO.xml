@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.nakanara.openapi.apt.dao">
+    <class name="TcOpenApiInfoDao" table="TC_OPENAPI_INFO">
+        <meta attribute="class-description">
+            OPEN API INFOMATION
+        </meta>
+        <id name="api_seq" type="string" column="api_seq">
+            <generator class="org.hibernate.id.UUIDGenerator"/>
+        </id>
+        <property name="api_name" type="string" column="api_name"/>
+        <property name="api_desc" type="string" column="api_desc"/>
+        <property name="api_url_dev" type="string" column="api_url_dev"/>
+        <property name="api_url_op" type="string" column="api_url_op"/>
+        <property name="api_reg_dttm" type="string" column="api_reg_dttm"/>
+        <property name="api_mod_dttm" type="string" column="api_mod_dttm"/>
+    </class>
+</hibernate-mapping>
