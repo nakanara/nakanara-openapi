@@ -1,5 +1,10 @@
 package com.nakanara.openapi.apt.dao;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
@@ -10,34 +15,13 @@ import javax.persistence.Id;
  )
  * Created by nakanara on 2017-06-29.
  */
+@Entity
+@Data
 public class TcCodeTypeDao {
 
     @Id
-    private String cod_typ_id;
-    private String cod_typ_name;
-    private String cod_typ_used;
+    @Getter @Setter private String cod_typ_id;
+    @Getter @Setter private String cod_typ_name;
+    @Getter @Setter private String cod_typ_used;
 
-    public String getCod_typ_id() {
-        return cod_typ_id;
-    }
-
-    public void setCod_typ_id(String cod_typ_id) {
-        this.cod_typ_id = cod_typ_id;
-    }
-
-    public String getCod_typ_name() {
-        return cod_typ_name;
-    }
-
-    public void setCod_typ_name(String cod_typ_name) {
-        this.cod_typ_name = cod_typ_name;
-    }
-
-    public String getCod_typ_used() {
-        return cod_typ_used;
-    }
-
-    public void setCod_typ_used(String cod_typ_used) {
-        this.cod_typ_used = cod_typ_used;
-    }
 }

@@ -14,9 +14,9 @@ import java.util.Map;
 /**
  * Created by steg on 2017-06-22.
  */
-@Entity(name = "Rtms")
+@Entity(name = "tbRtmsDao")
 @Data
-public class RTMSDao implements Serializable{
+public class TbRtmsDao implements Serializable{
 
     public static final String RTMS_DEAL = "APT_TYPE_01";  // 매매
     public static final String RTMS_LEASE  = "APT_TYPE_02";  // 전세
@@ -51,11 +51,11 @@ public class RTMSDao implements Serializable{
 
     @Getter @Setter private String rtmsType = RTMS_DEAL;    // 매매, 전세, 월세 타입.
 
-    public RTMSDao() {
+    public TbRtmsDao() {
 
     }
 
-    public RTMSDao(Map<String, Object> m) {
+    public TbRtmsDao(Map<String, Object> m) {
 
         //거래금액=   105,000,
         this.rtmsDealMoney = DataKrUtil.getDataKrLong(m.get("거래금액"));
@@ -105,11 +105,11 @@ public class RTMSDao implements Serializable{
 
 
         if(this.rtmsDealMoney > 0) {
-            rtmsType = RTMSDao.RTMS_DEAL;
+            rtmsType = TbRtmsDao.RTMS_DEAL;
         } else if(this.rtmsLeaseMoney > 0 && this.rtmsRantMoney == 0) {
-            rtmsType = RTMSDao.RTMS_LEASE;
+            rtmsType = TbRtmsDao.RTMS_LEASE;
         } else if(this.rtmsRantMoney > 0) {
-            rtmsType = RTMSDao.RTMS_RANT;
+            rtmsType = TbRtmsDao.RTMS_RANT;
         }
 
         this.rtmsRaw = m.toString();

@@ -1,12 +1,12 @@
 package com.nakanara.openapi.controller;
 
-import com.nakanara.openapi.apt.dao.RTMSDao;
+import com.nakanara.openapi.apt.dao.TbRtmsDao;
 import com.nakanara.openapi.service.OpenApiAptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -18,6 +18,7 @@ import java.util.Map;
  * Created by steg on 2017-06-30.
  */
 @RestController
+@Transactional
 public class OpenApiRestController {
 
     private Logger logger = LoggerFactory.getLogger(OpenApiRestController.class);
@@ -28,7 +29,7 @@ public class OpenApiRestController {
     @RequestMapping(value= "/getAptList.do", method = RequestMethod.GET, produces = "application/json")
     public Map<String, Object> getAptList(){
 
-        List<RTMSDao> list = openApiAptService.getAptList();
+        List<TbRtmsDao> list = openApiAptService.getAptList();
 
         Map<String, Object> m = new HashMap<>();
         m.put("result", list);

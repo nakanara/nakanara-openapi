@@ -140,7 +140,7 @@ public class DataGoKr {
 
     @Test
     public void getDynamicTest() {
-        Session session = factory.openSession();
+        Session session = factory.getCurrentSession();
 
         Query query = null;
 

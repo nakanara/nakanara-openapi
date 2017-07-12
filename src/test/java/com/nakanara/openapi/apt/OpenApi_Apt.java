@@ -3,7 +3,7 @@ package com.nakanara.openapi.apt;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nakanara.openapi.DataGoKr;
-import com.nakanara.openapi.apt.dao.RTMSDao;
+import com.nakanara.openapi.apt.dao.TbRtmsDao;
 import com.nakanara.openapi.apt.dao.TcCodeDao;
 import com.nakanara.util.DataKrUtil;
 import com.nakanara.util.StopWatchUtil;
@@ -121,12 +121,12 @@ public class OpenApi_Apt extends DataGoKr{
 
             //logger.info("item items = {} Data = {}", item.size(), item);
 
-            List<RTMSDao> list = new ArrayList<RTMSDao>();
+            List<TbRtmsDao> list = new ArrayList<TbRtmsDao>();
             for ( Map<String, Object> m : item) {
 
                 //logger.info("item 거래 금액: {} 건축년도: {} //{}", m.get("거래금액"), m.get("건축년도"), m);
                 //logger.info("raw:{}", m);
-                RTMSDao rtmsDao = new RTMSDao(m);
+                TbRtmsDao rtmsDao = new TbRtmsDao(m);
                 list.add(rtmsDao);
                 totalRow++;
                 ++curRow;
@@ -148,7 +148,7 @@ public class OpenApi_Apt extends DataGoKr{
      */
     public List<TcCodeDao> getLocationCode() {
 
-        Session session = factory.openSession();
+        Session session = factory.getCurrentSession();
 
         Query query = session.createQuery("from TcCodeDao where code_type = ?");
         query.setParameter(0, "LAWD");
@@ -159,13 +159,13 @@ public class OpenApi_Apt extends DataGoKr{
     }
 
 
-    public void addRTMS(List<RTMSDao> rtmsDaos) {
-        Session session = factory.openSession();
+    public void addRTMS(List<TbRtmsDao> rtmsDaos) {
+        Session session = factory.getCurrentSession();
         Transaction tx = null;
 
         try {
             tx = session.beginTransaction();
-            for(RTMSDao rtmsDao : rtmsDaos) {
+            for(TbRtmsDao rtmsDao : rtmsDaos) {
                 session.save(rtmsDao);
             }
             tx.commit();
@@ -179,7 +179,7 @@ public class OpenApi_Apt extends DataGoKr{
 
     public void delRTMSYYMM(String yymm) {
         logger.info("Delete RTMS YYMM: {}", yymm);
-        Session session = factory.openSession();
+        Session session = factory.getCurrentSession();
         Transaction tx = null;
 
         Query query = session.createQuery("delete RTMSDao where rtmsDealYY = :rtmsDealYY and rtmsDealMM = :rtmsDealMM");

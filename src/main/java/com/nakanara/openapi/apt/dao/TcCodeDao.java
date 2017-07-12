@@ -1,6 +1,10 @@
 package com.nakanara.openapi.apt.dao;
 
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,70 +12,19 @@ import javax.persistence.Id;
  * Created by steg on 2017-06-23.
  */
 
-@Entity
+@Entity(name = "TcCodeDao")
+@Data
 public class TcCodeDao {
 
-    private String code_type;
-
     @Id
-    private String code_id;
+    @Getter @Setter private String code_id;
 
-    private String code_name;
+    @Getter @Setter private String code_type;
 
-    private String code_used;
+    @Getter @Setter private String code_name;
 
-    private Integer code_order;
+    @Getter @Setter private String code_used;
 
+    @Getter @Setter private Integer code_order;
 
-
-    public String getCode_type() {
-        return code_type;
-    }
-
-    public void setCode_type(String code_type) {
-        this.code_type = code_type;
-    }
-
-    public String getCode_id() {
-        return code_id;
-    }
-
-    public void setCode_id(String code_id) {
-        this.code_id = code_id;
-    }
-
-    public String getCode_name() {
-        return code_name;
-    }
-
-    public void setCode_name(String code_name) {
-        this.code_name = code_name;
-    }
-
-    public String getCode_used() {
-        return code_used;
-    }
-
-    public void setCode_used(String code_used) {
-        this.code_used = code_used;
-    }
-
-    public Integer getCode_order() {
-        return code_order;
-    }
-
-    public void setCode_order(Integer code_order) {
-        this.code_order = code_order;
-    }
-
-    @Override
-    public String toString() {
-        return "TcCodeDao{" +
-                "code_type='" + code_type + '\'' +
-                ", code_id='" + code_id + '\'' +
-                ", code_name='" + code_name + '\'' +
-                ", code_used='" + code_used + '\'' +
-                ", code_order=" + code_order +
-                '}';
-    }
 }

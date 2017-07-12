@@ -2,10 +2,9 @@ package com.nakanara.openapi.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nakanara.openapi.apt.dao.RTMSDao;
+import com.nakanara.openapi.apt.dao.TbRtmsDao;
 import com.nakanara.openapi.apt.dao.TcCodeDao;
 import com.nakanara.util.DataKrUtil;
-import com.nakanara.util.DateUtil;
 import com.nakanara.util.StopWatchUtil;
 import com.nakanara.util.StringUtil;
 import org.hibernate.*;
@@ -38,7 +37,7 @@ public class OpenApiAptService extends DataGoKrApiService {
 
         //List<TcCodeDao> list = (List<TcCodeDao>)getHibernateTemplate().find("from TcCodeDao where code_type = ?", "LAWD");
 
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
 
         Query query = session.createQuery("from TcCodeDao where code_type = ?");
         query.setParameter(0, "LAWD");
@@ -70,7 +69,7 @@ public class OpenApiAptService extends DataGoKrApiService {
             yymm = "" + Calendar.getInstance().get(Calendar.YEAR);
         }
 
-        delRTMSYYMM(yymm, RTMSDao.RTMS_DEAL);
+        delRTMSYYMM(yymm, TbRtmsDao.RTMS_DEAL);
 
         for(TcCodeDao tcCodeDao : tcCodeDaos) {
             logger.info("Start YYMM: {} Location: {}", yymm, tcCodeDao.getCode_name());
@@ -103,7 +102,7 @@ public class OpenApiAptService extends DataGoKrApiService {
             yymm = "" + Calendar.getInstance().get(Calendar.YEAR);
         }
 
-        delRTMSYYMM(yymm, RTMSDao.RTMS_RANT);
+        delRTMSYYMM(yymm, TbRtmsDao.RTMS_RANT);
 
         for(TcCodeDao tcCodeDao : tcCodeDaos) {
             logger.info("Start YYMM: {} Location: {}", yymm, tcCodeDao.getCode_name());
@@ -189,12 +188,12 @@ public class OpenApiAptService extends DataGoKrApiService {
                     item = (List) items.get("item");
                 }
 
-                List<RTMSDao> list = new ArrayList<>();
+                List<TbRtmsDao> list = new ArrayList<>();
                 for (Map<String, Object> m : item) {
 
                     //logger.info("item 거래 금액: {} 건축년도: {} //{}", m.get("거래금액"), m.get("건축년도"), m);
                     //logger.info("raw:{}", m);
-                    RTMSDao rtmsDao = new RTMSDao(m);
+                    TbRtmsDao rtmsDao = new TbRtmsDao(m);
                     list.add(rtmsDao);
                     totalRow++;
                     ++curRow;
@@ -216,11 +215,11 @@ public class OpenApiAptService extends DataGoKrApiService {
      * 데이터 추가.
      * @param rtmsDaos
      */
-    public void addRTMS(List<RTMSDao> rtmsDaos) {
+    public void addRTMS(List<TbRtmsDao> rtmsDaos) {
 
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
 
-        for(RTMSDao rtmsDao : rtmsDaos) {
+        for(TbRtmsDao rtmsDao : rtmsDaos) {
             session.save(rtmsDao);
         }
 
@@ -234,32 +233,33 @@ public class OpenApiAptService extends DataGoKrApiService {
     public void delRTMSYYMM(String yymm, String rtmsType) {
         logger.info("Delete RTMS YYMM: {}", yymm);
 
-        Session session = sessionFactory.openSession();
+
+        Session session = sessionFactory.getCurrentSession();
 
         Query query = null;
 
-        if(RTMSDao.RTMS_DEAL.equals(rtmsType)) {
-            query = session.createQuery("delete RTMSDao where rtmsDealYY = :rtmsDealYY and rtmsDealMM = :rtmsDealMM and rtmsType = :rtmsType");
+        if(TbRtmsDao.RTMS_DEAL.equals(rtmsType)) {
+            query = session.createQuery("delete TbRtmsDao where rtmsDealYY = :rtmsDealYY and rtmsDealMM = :rtmsDealMM and rtmsType = :rtmsType");
             query.setParameter("rtmsDealYY", Integer.parseInt(yymm.substring(0, 4)));
             query.setParameter("rtmsDealMM", Integer.parseInt(yymm.substring(4, 6)));
             query.setParameter("rtmsType", rtmsType);
         } else {
-            query = session.createQuery("delete RTMSDao where rtmsDealYY = :rtmsDealYY and rtmsDealMM = :rtmsDealMM and rtmsType not in(:rtmsType)");
+            query = session.createQuery("delete TbRtmsDao where rtmsDealYY = :rtmsDealYY and rtmsDealMM = :rtmsDealMM and rtmsType not in(:rtmsType)");
             query.setParameter("rtmsDealYY", Integer.parseInt(yymm.substring(0, 4)));
             query.setParameter("rtmsDealMM", Integer.parseInt(yymm.substring(4, 6)));
-            query.setParameter("rtmsType", RTMSDao.RTMS_DEAL);
+            query.setParameter("rtmsType", TbRtmsDao.RTMS_DEAL);
         }
 
         query.executeUpdate();
 
     }
 
-    public List<RTMSDao> getAptList() {
-        Session session = sessionFactory.openSession();
+    public List<TbRtmsDao> getAptList() {
+        Session session = sessionFactory.getCurrentSession();
 
-        Query query = session.createQuery("from RTMSDao where rtmsDealYY = ? and rownum < 10");
+        Query query = session.createQuery("from TbRtmsDao where rtmsDealYY = ? and rownum < 10");
         query.setParameter(0, 2017);
-        List<RTMSDao> list = query.list();
+        List<TbRtmsDao> list = query.list();
 
         return list;
 

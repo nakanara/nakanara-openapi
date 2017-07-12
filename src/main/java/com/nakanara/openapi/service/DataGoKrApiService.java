@@ -4,8 +4,6 @@ import com.nakanara.util.StringUtil;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.BufferedReader;
@@ -22,7 +20,7 @@ import java.util.Map;
  */
 public class DataGoKrApiService {
 
-    public static final String URL_APT_DEAL = "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev";   // TODO
+    public static final String URL_APT_DEAL = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade";   // TODO
     public static final String URL_APT_RANT = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent";    // todo
 
     protected static final String OPEN_API_SERVICE_KEY = "QgX6nsZoNT8G5bftv6CNm3HWssSJfvoYKsYZir6wR5sLAg1AgJ4POz8pE7JYyotFJHpE3hNSNc%2F2uVrfiMGmKQ%3D%3D"; // TODO
@@ -67,7 +65,7 @@ public class DataGoKrApiService {
      * @return
      */
     public String collection(String collectinUrl) {
-        //perSetting();
+        perSetting();
 
         StringBuffer buf = new StringBuffer();
         BufferedReader in = null;

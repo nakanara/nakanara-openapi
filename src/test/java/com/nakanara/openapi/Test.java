@@ -1,11 +1,8 @@
 package com.nakanara.openapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.nakanara.openapi.apt.dao.RTMSDao;
+import com.nakanara.openapi.apt.dao.TbRtmsDao;
 import com.nakanara.util.DataKrUtil;
-import com.nakanara.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +10,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by steg on 2017-06-22.
@@ -68,7 +64,7 @@ public class Test {
 
             for ( Map<String, Object> m : item) {
 
-                RTMSDao rtmsDao = new RTMSDao(m);
+                TbRtmsDao rtmsDao = new TbRtmsDao(m);
                 logger.info("{}", m);
                 logger.info("item {}", rtmsDao.toString());
 

@@ -5,10 +5,23 @@
             <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
         </layout>
     </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/logs/openapi.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>openapi.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <logger name="com.nakanara" level="DEBUG"/>
     <logger name="org.hibernate" level="INFO"/>
-    <logger name="org.hibernate.SQL" level="DEBUG" />
-    <logger name="org.hibernate.type" level="TRACE" />
+    <logger name="org.hibernate.SQL" level="INFO" /> <!--DEBUG-->
+    <logger name="org.hibernate.type" level="INFO" /> <!--TRACE-->
+    <logger name="org.apache.catalina.core.ApplicationContext" level="INFO"/>
 
     <!-- JPA -->
     <!--<logger name="org.springframework.orm.jpa" level="INFO" />-->
@@ -16,5 +29,6 @@
     <logger name="org.springframework.transaction" level="DEBUG"/>
     <root level="debug">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE"/>
     </root>
 </configuration>

@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.nakanara.openapi.apt.dao">
-    <class name="RTMSDao" table="TB_RTMS">
+    <class name="com.nakanara.openapi.apt.dao.TbRtmsDao" table="TB_RTMS">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>

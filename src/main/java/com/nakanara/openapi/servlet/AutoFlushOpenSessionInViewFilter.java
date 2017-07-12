@@ -20,7 +20,7 @@ public class AutoFlushOpenSessionInViewFilter extends OpenSessionInViewFilter {
     @Override
     protected Session openSession(SessionFactory sessionFactory) throws DataAccessResourceFailureException {
         try {
-            Session session = sessionFactory.openSession();
+            Session session = sessionFactory.getCurrentSession();
             session.setFlushMode(FlushMode.AUTO); // This line changes the default behavior
             return session;
         } catch (HibernateException ex) {

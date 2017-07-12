@@ -1,24 +1,22 @@
 package com.nakanara.openapi.controller;
 
-import com.nakanara.openapi.apt.dao.RTMSDao;
 import com.nakanara.openapi.service.OpenApiAptService;
 import com.nakanara.util.DateUtil;
 import com.nakanara.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by steg on 2017-06-26.
  */
 @Controller
+@Transactional
 public class OpenApiController {
 
     private Logger logger = LoggerFactory.getLogger(OpenApiController.class);
