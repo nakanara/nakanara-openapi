@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by steg on 2017-06-22.
  */
-@Entity(name = "tbRtmsDao")
+@Entity(name = "TbRtmsDao")
 @Data
 public class TbRtmsDao implements Serializable{
 

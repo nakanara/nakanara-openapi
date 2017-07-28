@@ -178,11 +178,11 @@ public class OpenApi_Apt extends DataGoKr{
     }
 
     public void delRTMSYYMM(String yymm) {
-        logger.info("Delete RTMS YYMM: {}", yymm);
+        logger.info("Delete TbRTMS YYMM: {}", yymm);
         Session session = factory.getCurrentSession();
         Transaction tx = null;
 
-        Query query = session.createQuery("delete RTMSDao where rtmsDealYY = :rtmsDealYY and rtmsDealMM = :rtmsDealMM");
+        Query query = session.createQuery("delete TbRTMSDao where rtmsDealYY = :rtmsDealYY and rtmsDealMM = :rtmsDealMM");
         query.setParameter("rtmsDealYY", Integer.parseInt(yymm.substring(0,4)));
         query.setParameter("rtmsDealMM",Integer.parseInt(yymm.substring(4,6)));
 

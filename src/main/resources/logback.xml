@@ -21,7 +21,7 @@
     <logger name="org.hibernate" level="INFO"/>
     <logger name="org.hibernate.SQL" level="INFO" /> <!--DEBUG-->
     <logger name="org.hibernate.type" level="INFO" /> <!--TRACE-->
-    <logger name="org.apache.catalina.core.ApplicationContext" level="INFO"/>
+    <logger name="org.apache" level="INFO"/>
 
     <!-- JPA -->
     <!--<logger name="org.springframework.orm.jpa" level="INFO" />-->
@@ -31,4 +31,4 @@
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE"/>
     </root>
-</configuration>
+</configuration>`
