@@ -117,3 +117,10 @@ COMMENT ON COLUMN TB_COMPLEX.CP_AREAS IS          '면적';
 COMMENT ON COLUMN TB_COMPLEX.CP_N_MPP_ID IS       '타사이트 맵핑 코드';
 COMMENT ON COLUMN TB_COMPLEX.CP_D_MPP_ID IS       '타사이트 맵핑 코드';
 
+
+-- 09.13
+
+alter table tc_code add code_attr1 varchar2(20);
+alter table tc_code add code_desc varchar2(200);
+comment on column tc_code.code_attr1 is '속성';
+comment on column tc_code.code_desc is '비고';
