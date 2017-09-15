@@ -17,10 +17,28 @@
         </encoder>
     </appender>
 
+    <appender name="SQLLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/logs/openapi_sql.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>openapi_sql.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <logger name="com.nakanara" level="DEBUG"/>
-    <logger name="org.hibernate" level="INFO"/>
-    <logger name="org.hibernate.SQL" level="INFO" /> <!--DEBUG-->
-    <logger name="org.hibernate.type" level="INFO" /> <!--TRACE-->
+    <logger name="org.hibernate" level="INFO">
+        <appender-ref ref="SQLLOG"/>
+    </logger>
+    <logger name="org.hibernate.SQL" level="DEBUG"> <!--DEBUG-->
+        <appender-ref ref="SQLLOG"/>
+    </logger>
+    <logger name="org.hibernate.type" level="INFO"> <!--TRACE-->
+        <appender-ref ref="SQLLOG"/>
+    </logger>
+
     <logger name="org.apache" level="INFO"/>
 
     <!-- JPA -->
@@ -31,4 +49,4 @@
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE"/>
     </root>
-</configuration>`
+</configuration>
