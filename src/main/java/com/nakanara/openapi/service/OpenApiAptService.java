@@ -8,6 +8,8 @@ import com.nakanara.util.DataKrUtil;
 import com.nakanara.util.StopWatchUtil;
 import com.nakanara.util.StringUtil;
 import org.hibernate.*;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Created by steg on 2017-06-27.
+ * Created by nakanara on 2017-06-27.
  */
 @Service
 public class OpenApiAptService extends DataGoKrApiService {
@@ -72,10 +74,10 @@ public class OpenApiAptService extends DataGoKrApiService {
         delRTMSYYMM(yymm, TbRtmsDao.RTMS_DEAL);
 
         for(TcCodeDao tcCodeDao : tcCodeDaos) {
-            logger.info("Start YYMM: {} Location: {}", yymm, tcCodeDao.getCode_name());
+            logger.debug("Start YYMM: {} Location: {}", yymm, tcCodeDao.getCode_name());
             subRow = getRowData(domain, yymm, tcCodeDao.getCode_id());
             totalRow += subRow;
-            logger.info("Location: {} / {} Row: {} / {}", tcCodeDao.getCode_id(), tcCodeDao.getCode_name(), subRow, totalRow);
+            logger.debug("Location: {} / {} Row: {} / {}", tcCodeDao.getCode_id(), tcCodeDao.getCode_name(), subRow, totalRow);
         }
 
         StopWatchUtil.stop(OpenApiAptService.class.toString(), startCal);
@@ -168,7 +170,7 @@ public class OpenApiAptService extends DataGoKrApiService {
                 String resultCode = ""+header.get("resultCode");
                 if(!"00".equals(resultCode)) {
                     // TODO Log 표시
-                    logger.info("Error Code !!!!{}", resultCode);
+                    logger.error("Error Code !!!!{}", resultCode);
                     return 0;
                 }
 
@@ -265,6 +267,24 @@ public class OpenApiAptService extends DataGoKrApiService {
 
     }
 
+    /**
+     * 월별 수집 데이터 조회.
+     * @return
+     */
+    public List getMonthCollectInfo(){
 
+        Session session = sessionFactory.getCurrentSession();
+        List list = session.createCriteria(TbRtmsDao.class)
+                .setProjection( Projections.projectionList()
+                        .add(Projections.groupProperty("rtmsDealYY"))
+                        .add(Projections.groupProperty("rtmsDealMM"))
+                        .add(Projections.rowCount())
+                )
+                .addOrder( Order.asc("rtmsDealYY") )
+                .addOrder( Order.asc("rtmsDealMM") )
+                .list();
+
+        return list;
+    }
 
 }

@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Created by steg on 2017-06-27.
+ * Created by nakanara on 2017-06-27.
  */
 public class DataGoKrApiService {
 

@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by steg on 2017-06-23.
+ * Created by nakanara on 2017-06-23.
  */
 public class DataKrUtil {
 

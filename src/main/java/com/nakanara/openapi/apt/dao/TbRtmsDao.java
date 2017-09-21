@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * Created by steg on 2017-06-22.
+ * Created by nakanara on 2017-06-22.
  */
 @Entity(name = "TbRtmsDao")
 @Data

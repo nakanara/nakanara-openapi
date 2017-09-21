@@ -19,7 +19,7 @@ import java.util.*;
 
 /**
  * 아파트 매매 이력.
- * Created by steg on 2017-06-22.
+ * Created by nakanara on 2017-06-22.
  */
 public class OpenApi_Apt extends DataGoKr{
 

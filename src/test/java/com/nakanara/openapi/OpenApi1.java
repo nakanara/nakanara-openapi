@@ -9,7 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Created by steg on 2017-06-14.
+ * Created by nakanara on 2017-06-14.
  */
 public class OpenApi1 {
 
