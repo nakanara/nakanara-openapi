@@ -10,6 +10,7 @@ import com.nakanara.util.StringUtil;
 import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -274,15 +275,21 @@ public class OpenApiAptService extends DataGoKrApiService {
     public List getMonthCollectInfo(){
 
         Session session = sessionFactory.getCurrentSession();
-        List list = session.createCriteria(TbRtmsDao.class)
+        Criteria criteria = session.createCriteria(TbRtmsDao.class)
                 .setProjection( Projections.projectionList()
-                        .add(Projections.groupProperty("rtmsDealYY"))
-                        .add(Projections.groupProperty("rtmsDealMM"))
-                        .add(Projections.rowCount())
+                        /*.add( Projections.alias(Projections.groupProperty("rtmsDealYY"), "yy"))
+                        .add( Projections.alias(Projections.groupProperty("rtmsDealMM"), "mm"))
+                        .add( Projections.alias(Projections.rowCount(), "cnt"))*/
+                        .add( Projections.groupProperty("rtmsDealYY"), "yy")
+                        .add( Projections.groupProperty("rtmsDealMM"), "mm")
+                        .add( Projections.rowCount(), "cnt")
                 )
                 .addOrder( Order.asc("rtmsDealYY") )
                 .addOrder( Order.asc("rtmsDealMM") )
-                .list();
+                ;
+        criteria.setResultTransformer(Transformers.aliasToBean(HashMap.class));
+        List list = criteria.list();
+
 
         return list;
     }
