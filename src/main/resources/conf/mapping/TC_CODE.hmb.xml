@@ -12,6 +12,6 @@
         <property name="code_type" type="string" column="code_type"/>
         <property name="code_name" type="string" column="code_name"/>
         <property name="code_used" type="string" column="code_used"/>
-        <property name="code_order" type="string" column="code_order"/>
+        <property name="code_order" type="int" column="code_order"/>
     </class>
 </hibernate-mapping>

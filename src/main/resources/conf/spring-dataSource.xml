@@ -34,15 +34,21 @@
 -->
     <!--<tx:annotation-driven />-->
 
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
           <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
         <!--class="org.apache.commons.dbcp2.BasicDataSource">-->
-
+        <!-- Oracle -->
+        <!--
         <property name="driverClassName" value="oracle.jdbc.OracleDriver" />
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
         <property name="username" value="openapi_law" />
         <property name="password" value="openapi_law" />
-
+        -->
+        <property name="driverClassName" value="org.mariadb.jdbc.Driver" />
+        <property name="url" value="jdbc:mariadb://localhost:5306/openapi" />
+        <property name="username" value="openapi" />
+        <property name="password" value="openapi" />
     </bean>
 
 
@@ -58,19 +64,30 @@
         <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
             <props>
+                <!-- Row 삽입 후 자동 생성된 키 반납 여부 -->
                 <prop key="hibernate.jdbc.use_get_generated_keys">true</prop>
+
                 <prop key="show_sql">true</prop>
+                <!-- SQL 문 Console 표시 여부 -->
                 <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!-- SQL 문 Console 형식화 표시 여부 -->
                 <!--<prop key="hibernate.format_sql">true</prop>-->
-<!--                <prop key="hibernate.generate_statistics">true</prop>-->
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!-- 성능 튜닝을 위한 통계 자료 생성 여부 -->
+                <prop key="hibernate.generate_statistics">true</prop>
+
+                <!--http://egloos.zum.com/gyumee/v/2483659-->
+                <!-- 스키마 생성 -->
+                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+
                 <prop key="connection.autoReconnect">true</prop>
                 <prop key="connection.autoReconnectForPools">true</prop>
 <!--                <prop key="connection.is-connection-validation-required">true</prop>-->
                 <!--<prop key="connection.pool_size">20</prop>-->
                 <!--<prop key="c3p0.min_size">5</prop>
                 <prop key="c3p0.max_size">20</prop>-->
-                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</prop>
+                <!-- 최적화를 위한 Dialect 클래스 명 -->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</prop>-->
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
             </props>
         </property>
         <property name="mappingLocations">

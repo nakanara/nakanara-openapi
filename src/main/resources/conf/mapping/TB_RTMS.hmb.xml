@@ -8,10 +8,11 @@
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
-        <id name="rtmsNo" type="int" column="rtmsNo">
-            <generator class="sequence-identity">
+        <id name="rtmsNo" type="long" column="rtmsNo">
+            <!--<generator class="sequence-identity">
                 <param name="sequence">seq_tb_rtms</param>
-            </generator>
+            </generator>-->
+            <generator class="increment" />
         </id>
         <property name="rtmsSeq" type="string" column="rtmsSeq"/>
         <property name="rtmsBullingYY" column="rtmsBullingYY" type="int"/>
@@ -33,7 +34,7 @@
         <property name="rtmsLocalCode" column="rtmsLocalCode" type="string" />
         <property name="rtmsName" column="rtmsName" type="string" />
         <property name="rtmsFloor" column="rtmsFloor" type="string" />
-        <property name="rtmsAreaSize" column="rtmsAreaSize" type="double" />
+        <property name="rtmsAreaSize" column="rtmsAreaSize" type="java.math.BigDecimal" precision="10" scale="2" />
 
         <property name="rtmsType" column="rtmsType" type="string" />
         <property name="rtmsRaw" column="rtmsRaw" type="string" />
