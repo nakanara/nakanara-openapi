@@ -75,7 +75,7 @@
                         <td>${item.mm}</td>
                         <td>
                         ${item.cnt}
-                            <a href="#" onclick="fnCollection('${item.yy}','${item.mm}')"><label>재수집</label></a>
+                            <button type="button" class="btn btn-primary" onclick="fnCollection('${item.yy}','${item.mm}')">재수집</button>
                         </td>
                     </tr>
                 </c:forEach>

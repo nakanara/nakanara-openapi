@@ -34,7 +34,7 @@
         <property name="rtmsLocalCode" column="rtmsLocalCode" type="string" />
         <property name="rtmsName" column="rtmsName" type="string" />
         <property name="rtmsFloor" column="rtmsFloor" type="string" />
-        <property name="rtmsAreaSize" column="rtmsAreaSize" type="java.math.BigDecimal" precision="10" scale="2" />
+        <property name="rtmsAreaSize" column="rtmsAreaSize" type="double" precision="10" scale="2" />
 
         <property name="rtmsType" column="rtmsType" type="string" />
         <property name="rtmsRaw" column="rtmsRaw" type="string" />

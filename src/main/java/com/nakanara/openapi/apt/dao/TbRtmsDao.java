@@ -24,7 +24,7 @@ public class TbRtmsDao implements Serializable{
 
 
     @Id
-    @Getter @Setter private int rtmsNo; // 일련번호
+    @Getter @Setter private long rtmsNo; // 일련번호
 
     @Getter @Setter private int rtmsBullingYY; // 건축년도
     @Getter @Setter private long rtmsDealMoney = 0L; // 거래 금액

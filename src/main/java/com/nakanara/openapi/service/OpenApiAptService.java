@@ -42,8 +42,9 @@ public class OpenApiAptService extends DataGoKrApiService {
 
         Session session = sessionFactory.getCurrentSession();
 
-        Query query = session.createQuery("from TcCodeDao where code_type = ?");
+        Query query = session.createQuery("from TcCodeDao where code_type = ? and code_used = ?");
         query.setParameter(0, "LAWD");
+        query.setParameter(1, "1");
         List<TcCodeDao> list = query.list();
 
         return list;
@@ -75,10 +76,10 @@ public class OpenApiAptService extends DataGoKrApiService {
         delRTMSYYMM(yymm, TbRtmsDao.RTMS_DEAL);
 
         for(TcCodeDao tcCodeDao : tcCodeDaos) {
-            logger.debug("Start YYMM: {} Location: {}", yymm, tcCodeDao.getCode_name());
+            logger.info("Start YYMM: {} Location: {}", yymm, tcCodeDao.getCode_name());
             subRow = getRowData(domain, yymm, tcCodeDao.getCode_id());
             totalRow += subRow;
-            logger.debug("Location: {} / {} Row: {} / {}", tcCodeDao.getCode_id(), tcCodeDao.getCode_name(), subRow, totalRow);
+            logger.info("Location: {} / {} Row: {} / {}", tcCodeDao.getCode_id(), tcCodeDao.getCode_name(), subRow, totalRow);
         }
 
         StopWatchUtil.stop(OpenApiAptService.class.toString(), startCal);
@@ -156,7 +157,7 @@ public class OpenApiAptService extends DataGoKrApiService {
 
                 //String jsonData = "{\"response\":{\"header\":{\"resultCode\":\"00\",\"resultMsg\":\"NORMAL SERVICE.\"},\"body\":{\"items\":{\"item\":{\"거래금액\":\"     9,800\",\"건축년도\":2006,\"년\":2017,\"도로명\":\"진장로\",\"도로명건물본번호코드\":\"00051\",\"도로명건물부번호코드\":\"00016\",\"도로명시군구코드\":45720,\"도로명일련번호코드\":\"01\",\"도로명지상지하코드\":0,\"도로명코드\":3274046,\"법정동\":\"진안읍 군상리\",\"법정동본번코드\":\"0200\",\"법정동부번코드\":\"0001\",\"법정동시군구코드\":45720,\"법정동읍면동코드\":25021,\"법정동지번코드\":1,\"아파트\":\"진안군상고향마을\",\"월\":6,\"일\":\"1~10\",\"일련번호\":\"45720-10\",\"전용면적\":59.81,\"지번\":\"200-1\",\"지역코드\":45720,\"층\":10}},\"numOfRows\":1000,\"pageNo\":1,\"totalCount\":1}}}";
 
-                logger.info("raw data ={}", jsonData);
+                //logger.debug("raw data ={}", jsonData);
 
                 //Gson gson = new Gson();
                 //Map<String, Object> jsonObject = gson.fromJson(jsonData, new TypeToken<Map<String, Object>>(){}.getType());
