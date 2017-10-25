@@ -39,7 +39,8 @@ public class TbRtmsDao implements Serializable{
     @Getter @Setter private String rtmsAreaName;    // 법정동
     @Getter @Setter private String rtmsAreaNameCode;    // 법정동본번코드
     @Getter @Setter private String rtmsAreaNameSubCode;    // 법정동부번코드
-    @Getter @Setter private String rtmsLocalCode; // 지역코드
+    //@Getter @Setter private String rtmsLocalCode; // 지역코드
+    @Getter @Setter private TcCodeDao rtmsLocalCode; // 지역코드
     @Getter @Setter private String rtmsName;    // 상호
     @Getter @Setter private String rtmsFloor;     // 층.
     @Getter @Setter private String rtmsSeq; // 일련번호
@@ -49,8 +50,9 @@ public class TbRtmsDao implements Serializable{
     @Getter @Setter private long rtmsLeaseMoney = 0L; // 보증금.
     @Getter @Setter private long rtmsRantMoney = 0L; // 월세 금액
 
-    @Getter @Setter private String rtmsType = RTMS_DEAL;    // 매매, 전세, 월세 타입.
+    //@Getter @Setter private String rtmsType = RTMS_DEAL;    // 매매, 전세, 월세 타입
 
+    @Getter @Setter private TcCodeDao rtmsType;
     public TbRtmsDao() {
 
     }
@@ -95,7 +97,9 @@ public class TbRtmsDao implements Serializable{
         this.rtmsAreaSize = DataKrUtil.getDataKrDouble(m.get("전용면적"));
         // 지번=9.0,
         // 지역코드=11110.0,
-        this.rtmsLocalCode = DataKrUtil.getDataKrString(m.get("지역코드"));
+        //this.rtmsLocalCode = DataKrUtil.getDataKrString(m.get("지역코드"));
+        this.rtmsLocalCode = new TcCodeDao();
+        this.rtmsLocalCode.setCode_id(DataKrUtil.getDataKrString(m.get("지역코드")));
         // 층=6.0}
         this.rtmsFloor = DataKrUtil.getDataKrString(m.get("층"));
 
@@ -103,13 +107,14 @@ public class TbRtmsDao implements Serializable{
         this.rtmsLeaseMoney = DataKrUtil.getDataKrLong(m.get("보증금액"));
         this.rtmsRantMoney = DataKrUtil.getDataKrLong(m.get("월세금액"));
 
+        this.rtmsType = new TcCodeDao();
 
         if(this.rtmsDealMoney > 0) {
-            rtmsType = TbRtmsDao.RTMS_DEAL;
+            this.rtmsType.setCode_id(TbRtmsDao.RTMS_DEAL);
         } else if(this.rtmsLeaseMoney > 0 && this.rtmsRantMoney == 0) {
-            rtmsType = TbRtmsDao.RTMS_LEASE;
+            this.rtmsType.setCode_id(TbRtmsDao.RTMS_LEASE);
         } else if(this.rtmsRantMoney > 0) {
-            rtmsType = TbRtmsDao.RTMS_RANT;
+            this.rtmsType.setCode_id(TbRtmsDao.RTMS_RANT);
         }
 
         this.rtmsRaw = m.toString();

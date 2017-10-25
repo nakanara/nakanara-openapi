@@ -8,36 +8,39 @@
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
-        <id name="rtmsNo" type="long" column="rtmsNo">
+        <id name="rtmsNo" type="long">
             <!--<generator class="sequence-identity">
                 <param name="sequence">seq_tb_rtms</param>
             </generator>-->
             <generator class="increment" />
         </id>
-        <property name="rtmsSeq" type="string" column="rtmsSeq"/>
-        <property name="rtmsBullingYY" column="rtmsBullingYY" type="int"/>
-        <property name="rtmsDealMoney" column="rtmsDealMoney" type="long"/>
-        <property name="rtmsLeaseMoney" column="rtmsLeaseMoney" type="long"/>
-        <property name="rtmsRantMoney" column="rtmsRantMoney" type="long"/>
+        <property name="rtmsSeq" type="string"/>
+        <property name="rtmsBullingYY" type="int"/>
+        <property name="rtmsDealMoney" type="long"/>
+        <property name="rtmsLeaseMoney" type="long"/>
+        <property name="rtmsRantMoney" type="long"/>
 
-        <property name="rtmsDealYY" column="rtmsDealYY" type="int"/>
-        <property name="rtmsDealMM" column="rtmsDealMM" type="int" />
-        <property name="rtmsDealDD" column="rtmsDealDD" type="string" />
-        <property name="rtmsLoadName" column="rtmsLoadName" type="string" />
-        <property name="rtmsLoadMainNum" column="rtmsLoadMainNum" type="string" />
-        <property name="rtmsLoadSubNum" column="rtmsLoadSubNum" type="string" />
-        <property name="rtmsLoadNum" column="rtmsLoadNum" type="string" />
-        <property name="rtmsLoadCode" column="rtmsLoadCode" type="string" />
-        <property name="rtmsAreaName" column="rtmsAreaName" type="string" />
-        <property name="rtmsAreaNameCode" column="rtmsAreaNameCode" type="string" />
-        <property name="rtmsAreaNameSubCode" column="rtmsAreaNameSubCode" type="string" />
-        <property name="rtmsLocalCode" column="rtmsLocalCode" type="string" />
-        <property name="rtmsName" column="rtmsName" type="string" />
-        <property name="rtmsFloor" column="rtmsFloor" type="string" />
-        <property name="rtmsAreaSize" column="rtmsAreaSize" type="double" precision="10" scale="2" />
+        <property name="rtmsDealYY" type="int"/>
+        <property name="rtmsDealMM" type="int" />
+        <property name="rtmsDealDD" type="string" />
+        <property name="rtmsLoadName" type="string" />
+        <property name="rtmsLoadMainNum" type="string" />
+        <property name="rtmsLoadSubNum" type="string" />
+        <property name="rtmsLoadNum" type="string" />
+        <property name="rtmsLoadCode" type="string" />
+        <property name="rtmsAreaName" type="string" />
+        <property name="rtmsAreaNameCode" type="string" />
+        <property name="rtmsAreaNameSubCode" type="string" />
+        <!--<property name="rtmsLocalCode" type="string" />-->
+        <many-to-one name="rtmsLocalCode" class="TcCodeDao" />
 
-        <property name="rtmsType" column="rtmsType" type="string" />
-        <property name="rtmsRaw" column="rtmsRaw" type="string" />
+        <property name="rtmsName" type="string" />
+        <property name="rtmsFloor" type="string" />
+        <property name="rtmsAreaSize"  type="double" precision="10" scale="2" />
+
+        <!--<property name="rtmsType" column="rtmsType" type="string" />-->
+        <many-to-one name="rtmsType"  class="TcCodeDao" />
+        <property name="rtmsRaw" type="string" />
     </class>
 
 </hibernate-mapping>

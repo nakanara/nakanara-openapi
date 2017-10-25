@@ -4,12 +4,12 @@ package com.nakanara.openapi.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nakanara.openapi.apt.dao.TbRtmsDao;
 import com.nakanara.openapi.apt.dao.TcCodeDao;
+import com.nakanara.rdb.ResultDao;
 import com.nakanara.util.DataKrUtil;
 import com.nakanara.util.StopWatchUtil;
 import com.nakanara.util.StringUtil;
 import org.hibernate.*;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.*;
 import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -258,14 +258,25 @@ public class OpenApiAptService extends DataGoKrApiService {
 
     }
 
-    public List<TbRtmsDao> getAptList() {
+    public ResultDao getAptList() {
         Session session = sessionFactory.getCurrentSession();
 
-        Query query = session.createQuery("from TbRtmsDao where rtmsDealYY = ? and rownum < 10");
+        Query query = session.createQuery("from TbRtmsDao where rtmsDealYY = ?");
         query.setParameter(0, 2017);
+        query.setFirstResult(0);
+        query.setMaxResults(20);
         List<TbRtmsDao> list = query.list();
 
-        return list;
+        Query totalQuery = session.createQuery("select count(1) from TbRtmsDao  where rtmsDealYY = ?");
+        totalQuery.setParameter(0, 2017);
+        long totalCount = (Long)totalQuery.uniqueResult();
+
+        ResultDao resultDao = new ResultDao();
+        resultDao.setPageSize(20);
+        resultDao.setTotalCount(totalCount);
+        resultDao.setResult(list);
+
+        return resultDao;
 
     }
 
@@ -293,6 +304,52 @@ public class OpenApiAptService extends DataGoKrApiService {
 
 
         return list;
+    }
+
+    public List getDealInfo(Map m) {
+        /*select rtmsdealyy, rtmsdealmm, d.code_name name1, count(*) cnt
+        from tb_rtms r, tc_code c, tc_code d
+        where r.rtmslocalcode = c.code_id
+        and c.code_attr1 = d.code_id
+        group by rtmsdealyy, rtmsdealmm, d.code_id
+        order by d.code_order, rtmsdealyy, rtmsdealmm*/
+
+        Session session = sessionFactory.getCurrentSession();
+
+        /*DetachedCriteria tcCode = DetachedCriteria.forClass(TcCodeDao.class)
+                .setProjection( Property.forName("weight").avg() );*/
+
+
+        //Criteria criteria = session.createCriteria(TbRtmsDao.class);
+        DetachedCriteria criteria = DetachedCriteria.forClass(TbRtmsDao.class);
+
+        session.createCriteria(TbRtmsDao.class);
+
+        ProjectionList projectionList = Projections.projectionList();
+
+        //if(m.get("yy") != null)
+            projectionList.add( Projections.groupProperty("rtmsDealYY"), "yy");
+        //if(m.get("mm") != null)
+            projectionList.add( Projections.groupProperty("rtmsDealMM"), "mm");
+
+            projectionList.add( Projections.groupProperty("rtmsLocalCode"), "localcode");
+
+        //if(m.get("local") != null)
+            //projectionList.add( Projections.groupProperty("d.code_name"), "name1");
+
+        projectionList.add( Projections.rowCount(), "cnt");
+
+        criteria
+                .setProjection(projectionList)
+                .addOrder( Order.asc("rtmsDealYY") )
+                .addOrder( Order.asc("rtmsDealMM") )
+                ;
+        criteria.setResultTransformer(Transformers.aliasToBean(HashMap.class));
+        //List list = criteria.li
+        List list = new ArrayList();
+
+        return list;
+
     }
 
 }

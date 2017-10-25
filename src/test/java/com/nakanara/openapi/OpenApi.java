@@ -1,6 +1,8 @@
 package com.nakanara.openapi;
 
+import com.nakanara.openapi.apt.dao.TbRtmsDao;
 import com.nakanara.openapi.service.OpenApiAptService;
+import com.nakanara.rdb.ResultDao;
 import org.junit.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+import java.lang.reflect.Array;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,15 +43,47 @@ public class OpenApi {
 
         logger.info("JUNIT Start ");
 
-        List list = openApiAptService.getMonthCollectInfo();
+        List<Map> list = openApiAptService.getMonthCollectInfo();
 
         logger.info("list = {}", list);
 
         for(Object o : list) {
             logger.info("o : {}", o);
-        }
 
+        }
         assertNotNull(list);
 
+    }
+
+    @Test
+    public void getDealInfo(){
+
+        Map map = new HashMap();
+
+        List<Map> list = openApiAptService.getDealInfo(map);
+
+        logger.info("list = {}", list);
+
+        for(Object o : list) {
+            logger.info("o : {}", o);
+
+        }
+        assertNotNull(list);
+
+    }
+
+    @Test
+    public void getAptList(){
+        ResultDao resultDao = openApiAptService.getAptList();
+        logger.info("result={}", resultDao);
+
+        List result = resultDao.getResult();
+
+        for(int i=0; i < result.size(); i++) {
+            TbRtmsDao m = (TbRtmsDao)result.get(i);
+            logger.info("result:{}", m);
+        }
+
+        assertNotNull(resultDao);
     }
 }

@@ -2,6 +2,7 @@ package com.nakanara.openapi.controller;
 
 import com.nakanara.openapi.apt.dao.TbRtmsDao;
 import com.nakanara.openapi.service.OpenApiAptService;
+import com.nakanara.rdb.ResultDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,13 +28,11 @@ public class OpenApiRestController {
     private OpenApiAptService openApiAptService;
 
     @RequestMapping(value= "/getAptList.do", method = RequestMethod.GET, produces = "application/json")
-    public Map<String, Object> getAptList(){
+    public ResultDao getAptList(){
 
-        List<TbRtmsDao> list = openApiAptService.getAptList();
+        ResultDao resultDao = openApiAptService.getAptList();
 
-        Map<String, Object> m = new HashMap<>();
-        m.put("result", list);
-        return m;
+        return resultDao;
     }
 
 
